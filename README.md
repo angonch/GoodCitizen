@@ -63,8 +63,9 @@ GoodCitizen is an app that will inform the user on civic information relating to
 * Polling Locations Page
    * Recycler View
    * Dropdown to sort options
-* Representatives Page
-   * Recycler View
+* Representatives/Voter Info Page
+   * Two tabs
+   * Recycler Views
    * Dropdown to sort options
 * Account Details
    * Profile Picture (camera)
@@ -81,21 +82,45 @@ GoodCitizen is an app that will inform the user on civic information relating to
 
 **Tab Navigation** (Tab to Screen)
 
-* [fill out your first tab]
-* [fill out your second tab]
-* [fill out your third tab]
+* Elections List
+* Polling Locations
+* Representatives
+  * VoterInfo - State and Local Legislature & Contacts
+  * Representatives by address
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* Login Screen
+   * Login button leads to election list
+   * Sign in button leads to sign in screen
+* Sign in Screen
+   * Profile picture button leads to camera screen
+   * Sign in button leads to election list
+* Election List Screen
+   * Clicking an Item leads to Election Details Screen
+* Election Details Screen
+* Polling Location Screen
+   * Clicking an Item leads to Location Details Screen
+   * *Stretch Goal: Clicking Map button leads to Map View of Locations
+* Location Details Screen
+   * *Stretch Goal: Clicking Address opens Maps
+* Representatives/VoterInfo Screen
+   * Voter State/Local Info tab leads to Voter Info tab Screen
+   * Representatives Info tab leads to Representatives by Address Screen
+* Voter Info (tab) Screen
+   * *Stretch Goal: Clicking email address opens Mail
+* Representatives by Address Screen
+   * Clicking an Item leads to Representative Details Screen
+* Representative Details Screen
+   * *Stretch Goal: Clicking phone/mail/social media opens corresponding app
+* Edit Account Screen
+   * Profile picture button leads to Camera Screen
+* Camera Screen
+   * Retry button leads to new Camera view
+   * Save button leads back to Edit Account/Sign Up screen
 
 ## Wireframes
-<img src="https://github.com/angonch/GoodCitizen/blob/master/screenshots/WireFrames.pdf" width=600>
+<img src="https://github.com/angonch/GoodCitizen/blob/master/screenshots/WireFrames.png" width=600>
 
 ### Digital Wireframes & Mockups
 https://www.fluidui.com/editor/live/project/p_IV0yzIbbtpBRXtPFJa9dsanKbfMztE0W
