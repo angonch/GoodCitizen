@@ -95,12 +95,10 @@ GoodCitizen is an app that will inform the user on civic information relating to
    * ...
 
 ## Wireframes
-Basic Mock-up
+<img src="https://github.com/angonch/GoodCitizen/blob/master/screenshots/WireFrames.pdf" width=600>
+
+### Digital Wireframes & Mockups
 https://www.fluidui.com/editor/live/project/p_IV0yzIbbtpBRXtPFJa9dsanKbfMztE0W
-More Detailed Wireframes:
-
-
-### [BONUS] Digital Wireframes & Mockups
 
 ### [BONUS] Interactive Prototype
 
