@@ -131,7 +131,118 @@ https://www.fluidui.com/editor/live/project/p_IV0yzIbbtpBRXtPFJa9dsanKbfMztE0W
 [This section will be completed in Unit 9]
 ### Models
 [Add table of models]
+
+| Object   |Properties|Description|
+| -------- | -------- |--------   |
+| User     | name | String: username
+|          | password | String: pass
+|          | email | String: email
+|          | address | String that will be formatted from several textboxes and a dropdown to get the right format of an address for the API input
+|          | profilePicture | File/ParseFile: taken with camera
+| Election | electionName | String: name of election
+|          | date | String: date held
+|          | divisionId| String: containing level (national, state, local) and corresponding country/state/disctrict 
+| Location | locationName | String: name of location
+|          | address | String: address of location
+|          | pollingHours | String: usually a description of the hours open and when they start to accept drop-offs
+|          | voterService | String: usually "dropoff", shows service that the location gives
+| StateJurisdiction | name | String: State name (ex. "Washington")
+|                   | electionInfoUrl | String: url to website
+|                   | correspondenceAddress | String: address of state's capitol
+| LocalJurisdiction | name | String: Country name (ex. "King County")
+|                   | electionInfoUrl | String: url to website
+|                   | officialsEmailAddress | String: email address to contact local government
+| Representative | namePosition | String: position (ex. "Potus")
+|                | divisionId | String: containing level (national, state, local) and corresponding country/state/disctrict 
+|                | levels | String(or Enum): level of role (country, administrative area 1, administrative area 2)
+|                | name | String: name of official
+|                | party | String(or Enum): party represented
+|                | photoUrl | String: url of image of official
+|                | urls | String: url of official's website
+|                | channels | Dictionary<String, String>: Maps Key of channel type (FB, Twitter, or Youtube) to URL
+
+
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- API: Google Civic Information API
+- Login Screen
+    - [GET] after logging in, gets the current signed in User from Parse
+- Sign Up Screen
+    - [POST] after creating an account, posts a new User to Parse
+- Election List Screen
+    - [GET] list of elections by address from Google Civic Info API electionQuery
+- Election Details Screen
+    - No extra calls
+- Polling Location List Screen
+    - [GET] list of polling locations from Google Civic Info API
+    - *Stretch Goal* [GET] Map to place polling locations on OR call to open Google Maps
+- Polling Location Details Screen
+    - Same as list screen^
+- State/Local Info Screen
+    - [GET] State and Local Jurisdiction info from Google Civic Info API voterInfoQuery
+- State/Local Info Details Screen
+    - No extra calls
+    - *Stretch Goal* [GET] redirect user to the website when clicked on URL
+- Representatives Info Screen
+    - [GET] Representatives from Google Civic Info API representativeInfoByAddress
+- Representative Details Screen
+    - *Stretch Goal* [GET] call to FB/Twitter/Youtube to redirect user to their channel or website
+- Edit Account Screen
+    - [GET] Get photo file from camera
+    - [POST] Post updates user info to Parse
+
+Snippets for Parse network requests
+- Signing up: creating new user
+```
+// Create the ParseUser
+ParseUser user = new ParseUser();
+// Set core properties
+user.setUsername("joestevens");
+user.setPassword("secret123");
+user.setEmail("email@example.com");
+// Set custom properties
+user.put("phone", "650-253-0000");
+// Invoke signUpInBackground
+user.signUpInBackground(new SignUpCallback() {
+  public void done(ParseException e) {
+    if (e == null) {
+      // Hooray! Let them use the app now.
+    } else {
+      // Sign up didn't succeed. Look at the ParseException
+      // to figure out what went wrong
+    }
+  }
+});
+```
+- Logging in: getting current user
+```
+ParseUser.logInInBackground("joestevens", "secret123", new LogInCallback() {
+  public void done(ParseUser user, ParseException e) {
+    if (user != null) {
+      // Hooray! The user is logged in.
+    } else {
+      // Signup failed. Look at the ParseException to see what happened.
+    }
+  }
+});
+
+ParseUser currentUser = ParseUser.getCurrentUser();
+if (currentUser != null) {
+  // do stuff with the user
+} else {
+  // show the signup or login screen
+}
+```
+- Updating current user
+```
+// Get the ParseUser
+ParseUser user = ParseUser.getCurrentUser();
+// Change properties
+user.setUsername("joestevens");
+user.setPassword("secret123");
+user.setEmail("email@example.com");
+// Change custom properties
+user.put("phone", "650-253-0000");
+// Invoke saveInBackground
+user.saveInBackground();
+```
+
+- API used: Google Civic Information API, *stretch goal - Google Maps API*
