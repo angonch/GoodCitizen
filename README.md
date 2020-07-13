@@ -146,12 +146,14 @@ https://www.fluidui.com/editor/live/project/p_IV0yzIbbtpBRXtPFJa9dsanKbfMztE0W
 |          | address | String: address of location
 |          | pollingHours | String: usually a description of the hours open and when they start to accept drop-offs
 |          | voterService | String: usually "dropoff", shows service that the location gives
-| StateJurisdiction | name | String: State name (ex. "Washington")
+| Jurisdiction | stateName | String: State name (ex. "Washington")
 |                   | electionInfoUrl | String: url to website
 |                   | correspondenceAddress | String: address of state's capitol
-| LocalJurisdiction | name | String: Country name (ex. "King County")
+|                   | localName | String: Country name (ex. "King County")
 |                   | electionInfoUrl | String: url to website
+|                   | officePhoneNumber | String:phone number of local government office
 |                   | officialsEmailAddress | String: email address to contact local government
+|                   | localAddress          | String: address of local government
 | Representative | namePosition | String: position (ex. "Potus")
 |                | divisionId | String: containing level (national, state, local) and corresponding country/state/disctrict 
 |                | levels | String(or Enum): level of role (country, administrative area 1, administrative area 2)
