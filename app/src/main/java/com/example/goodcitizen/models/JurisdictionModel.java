@@ -3,6 +3,7 @@ package com.example.goodcitizen.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+// State and Local Election information for state where voter votes in
 public class JurisdictionModel {
 
     private String stateName;
@@ -15,7 +16,7 @@ public class JurisdictionModel {
     private String localAddress;
 
     // Gets state and local jurisdiction info from "state" jsonObject from voterInfoQuery
-    private JurisdictionModel fromJson(JSONObject jsonObject) throws JSONException {
+    public static JurisdictionModel fromJson(JSONObject jsonObject) throws JSONException {
         JurisdictionModel jurisdictionModel = new JurisdictionModel();
         jurisdictionModel.stateName = jsonObject.getString("name");
         jurisdictionModel.stateUrl = jsonObject.getJSONObject("electionAdministrationBody").getString("electionInfoUrl");
@@ -28,7 +29,7 @@ public class JurisdictionModel {
         return jurisdictionModel;
     }
 
-    private String addressFromJson(JSONObject jsonObject) throws JSONException{
+    static String addressFromJson(JSONObject jsonObject) throws JSONException{
         return jsonObject.getString("line1") + " " + jsonObject.getString("city") + " "
                 + jsonObject.getString("state") + " " + jsonObject.getString("zip");
     }
