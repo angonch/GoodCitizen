@@ -156,7 +156,6 @@ https://www.fluidui.com/editor/live/project/p_IV0yzIbbtpBRXtPFJa9dsanKbfMztE0W
 |                   | localAddress          | String: address of local government
 | Representative | namePosition | String: position (ex. "Potus")
 |                | divisionId | String: containing level (national, state, local) and corresponding country/state/disctrict 
-|                | levels | String(or Enum): level of role (country, administrative area 1, administrative area 2)
 |                | name | String: name of official
 |                | party | String(or Enum): party represented
 |                | photoUrl | String: url of image of official
