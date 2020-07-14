@@ -11,10 +11,10 @@
         android:id="@+id/fabAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/flContainer"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@color/colorPrimary"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini" />
