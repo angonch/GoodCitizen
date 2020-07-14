@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".activities.LoginActivity">
 
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="username"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"
+        android:textSize="14sp" />
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
