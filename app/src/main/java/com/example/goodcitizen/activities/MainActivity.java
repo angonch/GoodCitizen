@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+        final Fragment fragment1 = new ElectionsFragment();
+        final Fragment fragment2 = new LocationsFragment();
+        final Fragment fragment3 = new VoterInfoRepsFragment();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -47,16 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_elections:
-                        fragment = new ElectionsFragment();
+                        fragment = fragment1;
                         Toast.makeText(getApplicationContext(), "Elections page!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_locations:
-                        fragment = new LocationsFragment();
+                        fragment = fragment2;
                         Toast.makeText(getApplicationContext(), "Locations page!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_reps:
                     default:
-                        fragment = new VoterInfoRepsFragment();
+                        fragment = fragment3;
                         Toast.makeText(getApplicationContext(), "Voter Info page!", Toast.LENGTH_SHORT).show();
                         break;
                 }

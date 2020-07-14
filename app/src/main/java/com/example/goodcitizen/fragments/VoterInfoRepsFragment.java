@@ -34,17 +34,17 @@ public class VoterInfoRepsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         fragmentManager = getChildFragmentManager();
         tabLayout = view.findViewById(R.id.tlVoterInfo);
+        final Fragment fragment1 = new JurisdictionFragment();
+        final Fragment fragment2 = new RepresentativesFragment();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            private boolean alreadyReselected = false;
-
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Fragment fragment;
                 if(tab.getPosition() == 0) {
-                    fragment = new JurisdictionFragment();
+                    fragment = fragment1;
                     Toast.makeText(getContext(), "Jurisdiction info page!", Toast.LENGTH_SHORT).show();
                 } else {
-                    fragment = new RepresentativesFragment();
+                    fragment = fragment2;
                     Toast.makeText(getContext(), "Representatives page!", Toast.LENGTH_SHORT).show();
                 }
                 fragmentManager.beginTransaction().replace(R.id.flVoterInfoContainer, fragment).commit();
