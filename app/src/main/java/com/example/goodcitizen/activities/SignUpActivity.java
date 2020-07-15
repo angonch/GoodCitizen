@@ -21,6 +21,12 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private EditText etEmail;
+    private EditText etAddressLine1;
+    private EditText etAddressLine2;
+    private EditText etAddressLine3;
+    private EditText etAddressCity;
+    private EditText etAddressState;
+    private EditText etAddressZip;
     private Button btnSignUp;
 
     @Override
@@ -28,11 +34,18 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        //TODO: add address fields for sign in
+        //TODO: error handling
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
+        etAddressLine1 = findViewById(R.id.etAddressLine1);
+        etAddressLine2 = findViewById(R.id.etAddressLine2);
+        etAddressLine3 = findViewById(R.id.etAddressLine3);
+        etAddressCity = findViewById(R.id.etAddressCity);
+        etAddressState = findViewById(R.id.etAddressState);
+        etAddressZip = findViewById(R.id.etAddressZip);
         btnSignUp = findViewById(R.id.btnSignUp);
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,18 +53,32 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                signUpUser(email, username, password);
+                String address = getAddress(etAddressLine1, etAddressLine2, etAddressLine3, etAddressCity, etAddressState, etAddressZip);
+                signUpUser(email, username, password, address);
             }
         });
     }
 
-    private void signUpUser(String email, String username, String password) {
+    private String getAddress(EditText etAddressLine1, EditText etAddressLine2, EditText etAddressLine3, EditText etAddressCity, EditText etAddressState, EditText etAddressZip) {
+        String address = etAddressLine1.getText().toString() + ",";
+        if(!etAddressLine2.getText().toString().isEmpty()) {
+            address += etAddressLine2.getText().toString() + ",";
+        }
+        if(!etAddressLine3.getText().toString().isEmpty()) {
+            address += etAddressLine3.getText().toString() + ",";
+        }
+        address += etAddressCity.getText().toString() + " " + etAddressState.getText().toString() + "," + etAddressZip.getText().toString();
+        return address;
+    }
+
+    private void signUpUser(String email, String username, String password, String address) {
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
+        user.put("address", address);
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             @Override

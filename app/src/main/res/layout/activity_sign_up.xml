@@ -23,6 +23,46 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="password"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* = required fields" />
+    <EditText
+        android:id="@+id/etAddressLine1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="line 1*"/>
+    <EditText
+        android:id="@+id/etAddressLine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="line 2"/>
+    <EditText
+        android:id="@+id/etAddressLine3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="line 3"/>
+    <EditText
+        android:id="@+id/etAddressCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="city*"/>
+    <EditText
+        android:id="@+id/etAddressState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="state*"/>
+    <EditText
+        android:id="@+id/etAddressZip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="zip*"/>
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
