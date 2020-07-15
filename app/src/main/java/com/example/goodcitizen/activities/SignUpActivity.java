@@ -59,16 +59,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private String getAddress(EditText etAddressLine1, EditText etAddressLine2, EditText etAddressLine3, EditText etAddressCity, EditText etAddressState, EditText etAddressZip) {
-        String address = etAddressLine1.getText().toString() + ",";
-        if(!etAddressLine2.getText().toString().isEmpty()) {
-            address += etAddressLine2.getText().toString() + ",";
-        }
-        if(!etAddressLine3.getText().toString().isEmpty()) {
-            address += etAddressLine3.getText().toString() + ",";
-        }
-        address += etAddressCity.getText().toString() + " " + etAddressState.getText().toString() + "," + etAddressZip.getText().toString();
-        return address;
+    static String getAddress(EditText etAddressLine1, EditText etAddressLine2, EditText etAddressLine3, EditText etAddressCity, EditText etAddressState, EditText etAddressZip) {
+        return etAddressLine1.getText().toString() + "," + etAddressLine2.getText().toString() + "," + etAddressLine3.getText().toString() + "," +
+                etAddressCity.getText().toString() + "," + etAddressState.getText().toString() + "," + etAddressZip.getText().toString();
     }
 
     private void signUpUser(String email, String username, String password, String address) {
