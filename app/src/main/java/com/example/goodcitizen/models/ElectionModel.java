@@ -28,4 +28,16 @@ public class ElectionModel {
         }
         return elections;
     }
+
+    public String getElectionName() {
+        return electionName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getDivisionId() {
+        return divisionId;
+    }
 }

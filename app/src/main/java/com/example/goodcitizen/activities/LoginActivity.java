@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if(ParseUser.getCurrentUser() != null) {
+            Log.i(TAG, "Success logging in " + ParseUser.getCurrentUser().getUsername() + ", " + ParseUser.getCurrentUser().get("address"));
             goMainActivity();
         }
 
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 } else {
                     // go to main activity
+                    Log.i(TAG, "Success logging in " + ParseUser.getCurrentUser().getUsername());
                     goMainActivity();
                 }
             }

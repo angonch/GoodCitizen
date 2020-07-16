@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -43,6 +44,13 @@ public class ElectionsFragment extends Fragment {
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
 
+        // create adapter
+
+        // set adapter on recycler view
+
+        // set layout manager on recycler view
+
+        elections = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(GoogleClient.getElectionsUrl(getContext()), new JsonHttpResponseHandler() {
             @Override
@@ -50,11 +58,11 @@ public class ElectionsFragment extends Fragment {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    JSONArray results = jsonObject.getJSONArray("results");
+                    JSONArray results = jsonObject.getJSONArray("elections");
                     Log.i(TAG, "Results: " + results.toString());
-                    //elections.addAll(ElectionModel.fromJsonArray(results)); // Modify elections list
+                    elections.addAll(ElectionModel.fromJsonArray(results)); // Modify elections list
                     //electionAdapter.notifyDataSetChanged();
-                    //Log.i(TAG, "Elections: " + elections.size());
+                    Log.i(TAG, "Elections: " + elections.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                     e.printStackTrace();
