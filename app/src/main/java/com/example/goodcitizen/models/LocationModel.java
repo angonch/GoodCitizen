@@ -33,4 +33,20 @@ public class LocationModel {
         }
         return locations;
     }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPollingHours() {
+        return pollingHours;
+    }
+
+    public String getVoterService() {
+        return voterService;
+    }
 }

@@ -59,9 +59,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvLocationName = itemView.findViewById(R.id.tvLocationName);
         }
 
-        public void bind(LocationModel election) {
+        public void bind(LocationModel location) {
+            tvLocationName.setText(location.getLocationName());
         }
 
         @Override
