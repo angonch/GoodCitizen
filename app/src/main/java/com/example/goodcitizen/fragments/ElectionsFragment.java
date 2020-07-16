@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
+import com.example.goodcitizen.adapters.ElectionAdapter;
 import com.example.goodcitizen.models.ElectionModel;
 
 import org.json.JSONArray;
@@ -43,14 +46,16 @@ public class ElectionsFragment extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
+        RecyclerView rvElections = view.findViewById(R.id.rvElections);
+        elections = new ArrayList<>();
 
         // create adapter
-
+        final ElectionAdapter adapter = new ElectionAdapter(getContext(), elections);
         // set adapter on recycler view
-
+        rvElections.setAdapter(adapter);
         // set layout manager on recycler view
+        rvElections.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        elections = new ArrayList<>();
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(GoogleClient.getElectionsUrl(getContext()), new JsonHttpResponseHandler() {
             @Override
@@ -61,7 +66,7 @@ public class ElectionsFragment extends Fragment {
                     JSONArray results = jsonObject.getJSONArray("elections");
                     Log.i(TAG, "Results: " + results.toString());
                     elections.addAll(ElectionModel.fromJsonArray(results)); // Modify elections list
-                    //electionAdapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     Log.i(TAG, "Elections: " + elections.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
