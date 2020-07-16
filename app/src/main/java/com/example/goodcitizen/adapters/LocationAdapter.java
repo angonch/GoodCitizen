@@ -11,62 +11,57 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodcitizen.R;
-import com.example.goodcitizen.models.ElectionModel;
+import com.example.goodcitizen.models.LocationModel;
 
 import java.util.List;
 
-public class ElectionAdapter extends RecyclerView.Adapter<ElectionAdapter.ViewHolder> {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
 
-    public static final String TAG = "ElectionAdapter";
+    public static final String TAG = "LocationAdapter";
     Context context;
-    List<ElectionModel> elections;
+    List<LocationModel> locations;
 
-    public ElectionAdapter(Context context, List<ElectionModel> elections) {
+    public LocationAdapter(Context context, List<LocationModel> locations) {
         this.context = context;
-        this.elections = elections;
+        this.locations = locations;
     }
 
     //  inflating a layout from XML and returning the holder
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LocationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder");
         // Inflate item_election XML to get View
-        View electionView = LayoutInflater.from(context).inflate(R.layout.item_election, parent, false);
+        View locationView = LayoutInflater.from(context).inflate(R.layout.item_location, parent, false);
         // Wrap view inside a holder
-        return new ViewHolder(electionView);
+        return new LocationAdapter.ViewHolder(locationView);
     }
 
     // Populating data into the item through holder
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LocationAdapter.ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: " + position);
         // Get the election at the position
-        ElectionModel election = elections.get(position);
+        LocationModel location = locations.get(position);
         // Bind election data to holder
-        holder.bind(election);
+        holder.bind(location);
     }
 
     // Returns total count of items in the list
     @Override
     public int getItemCount() {
-        return elections.size();
+        return locations.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvElectionName;
-        TextView tvDate;
+        TextView tvLocationName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvElectionName = itemView.findViewById(R.id.tvElectionName);
-            tvDate = itemView.findViewById(R.id.tvDate);
         }
 
-        public void bind(ElectionModel election) {
-            tvElectionName.setText(election.getElectionName());
-            tvDate.setText(election.getDate());
+        public void bind(LocationModel election) {
         }
 
         @Override
