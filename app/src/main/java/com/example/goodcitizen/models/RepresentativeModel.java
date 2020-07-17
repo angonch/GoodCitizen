@@ -25,16 +25,29 @@ public class RepresentativeModel {
         // for each office position, create a Representative model for each
         // official holding that office position and add to the list
         List<RepresentativeModel> representatives = new ArrayList<>();
-        for (Integer i : (List<Integer>)jsonObject.get("officialIndices")) {
+        List<Integer> indices = indicesFromJsonArray(jsonObject.getJSONArray("officialIndices"));
+        for (Integer i : indices) {
             RepresentativeModel representative = new RepresentativeModel();
             representative.position = jsonObject.getString("name");
             representative.divisionId = jsonObject.getString("divisionId");
             representative.officialName = officialsJsonArray.getJSONObject(i).getString("name");
             representative.party = officialsJsonArray.getJSONObject(i).getString("party");
-            representative.photoUrl = officialsJsonArray.getJSONObject(i).getString("photoUrl");
+            try {
+                representative.photoUrl = officialsJsonArray.getJSONObject(i).getString("photoUrl");
+            } catch (Exception e) {
+                representative.photoUrl = "";
+            }
             representatives.add(representative);
         }
         return representatives;
+    }
+
+    private static List<Integer> indicesFromJsonArray(JSONArray officialIndices) throws JSONException {
+        List<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < officialIndices.length(); i++) {
+            indices.add((Integer) officialIndices.get(i));
+        }
+        return indices;
     }
 
     // Passed in: office jsonArray and officials jsonArray
