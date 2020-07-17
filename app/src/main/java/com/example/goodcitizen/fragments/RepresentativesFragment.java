@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
@@ -45,7 +46,7 @@ public class RepresentativesFragment extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
-        //RecyclerView rvRepresentatives = view.findViewById(R.id.rvRepresentatives);
+        RecyclerView rvRepresentatives = view.findViewById(R.id.rvRepresentatives);
         representatives = new ArrayList<>();
 
 //        // create adapter
