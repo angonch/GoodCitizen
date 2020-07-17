@@ -60,6 +60,26 @@ public class RepresentativeModel {
         }
         return representatives;
     }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getDivisionId() {
+        return divisionId;
+    }
+
+    public String getOfficialName() {
+        return officialName;
+    }
+
+    public String getParty() {
+        return party;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 }
 //offices (jsonArray)
 //  name

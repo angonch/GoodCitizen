@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -14,6 +15,7 @@ import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
+import com.example.goodcitizen.adapters.RepresentativeAdapter;
 import com.example.goodcitizen.models.RepresentativeModel;
 import com.parse.ParseUser;
 
@@ -49,12 +51,12 @@ public class RepresentativesFragment extends Fragment {
         RecyclerView rvRepresentatives = view.findViewById(R.id.rvRepresentatives);
         representatives = new ArrayList<>();
 
-//        // create adapter
-//        final RepresentativeAdapter adapter = new RepresentativeAdapter(getContext(), representatives);
-//        // set adapter on recycler view
-//        rvRepresentatives.setAdapter(adapter);
-//        // set layout manager on recycler view
-//        rvRepresentatives.setLayoutManager(new LinearLayoutManager(getContext()));
+        // create adapter
+        final RepresentativeAdapter adapter = new RepresentativeAdapter(getContext(), representatives);
+        // set adapter on recycler view
+        rvRepresentatives.setAdapter(adapter);
+        // set layout manager on recycler view
+        rvRepresentatives.setLayoutManager(new LinearLayoutManager(getContext()));
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -70,7 +72,7 @@ public class RepresentativesFragment extends Fragment {
                     Log.i(TAG, "Offices: " + resultsOffices.toString());
                     Log.i(TAG, "Officials: " + resultsOfficials.toString());
                     representatives.addAll(RepresentativeModel.fromJsonArray(resultsOffices, resultsOfficials));
-                    //adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     Log.i(TAG, "Representatives: " + representatives.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,18 +53,23 @@ public class RepresentativeAdapter extends RecyclerView.Adapter<RepresentativeAd
     
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
+        TextView tvPosition;
+        TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvPosition = itemView.findViewById(R.id.tvPosition);
+            tvName = itemView.findViewById(R.id.tvName);
+        }
+
+        public void bind(RepresentativeModel rep) {
+            tvPosition.setText(rep.getPosition());
+            tvName.setText(rep.getOfficialName());
         }
 
         @Override
         public void onClick(View view) {
             
-        }
-
-        public void bind(RepresentativeModel rep) {
         }
     }
 }
