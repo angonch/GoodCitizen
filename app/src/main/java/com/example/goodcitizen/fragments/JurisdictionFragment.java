@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -26,6 +27,16 @@ public class JurisdictionFragment extends Fragment {
     public static final String TAG = "JurisdictionFragment";
     JurisdictionModel jurisdictionInfo;
 
+    // Views
+    private TextView tvStateName;
+    private TextView tvStateUrl;
+    private TextView tvStateAddress;
+    private TextView tvLocalName;
+    private TextView tvLocalPhone;
+    private TextView tvLocalEmail;
+    private TextView tvLocalUrl;
+    private TextView tvLocalAddress;
+
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     @Override
@@ -37,7 +48,7 @@ public class JurisdictionFragment extends Fragment {
     // This event is triggered soon after onCreateView().
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
@@ -55,7 +66,7 @@ public class JurisdictionFragment extends Fragment {
                     Log.i(TAG, "Result: " + result.toString());
                     jurisdictionInfo = (JurisdictionModel.fromJson(result));
                     Log.i(TAG, "Result: " + result.toString());
-//                  bind to views
+                    bindToViews(view);
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
                     e.printStackTrace();
@@ -67,5 +78,25 @@ public class JurisdictionFragment extends Fragment {
                 Log.d(TAG, "onFailure", throwable);
             }
         });
+    }
+
+    private void bindToViews(View view) {
+        tvStateName = view.findViewById(R.id.tvStateName);
+        tvStateUrl = view.findViewById(R.id.tvStateUrl);
+        tvStateAddress = view.findViewById(R.id.tvStateAddress);
+        tvLocalName = view.findViewById(R.id.tvLocalName);
+        tvLocalPhone = view.findViewById(R.id.tvLocalPhone);
+        tvLocalEmail = view.findViewById(R.id.tvLocalEmail);
+        tvLocalUrl = view.findViewById(R.id.tvLocalUrl);
+        tvLocalAddress = view.findViewById(R.id.tvLocalAddress);
+
+        tvStateName.setText(jurisdictionInfo.getStateName());
+        tvStateUrl.setText(jurisdictionInfo.getStateUrl());
+        tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
+        tvLocalName.setText(jurisdictionInfo.getLocalName());
+        tvLocalPhone.setText(jurisdictionInfo.getLocalPhone());
+        tvLocalEmail.setText(jurisdictionInfo.getLocalEmail());
+        tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
+        tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
     }
 }

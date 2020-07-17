@@ -33,6 +33,38 @@ public class JurisdictionModel {
         return jsonObject.getString("line1") + " " + jsonObject.getString("city") + " "
                 + jsonObject.getString("state") + " " + jsonObject.getString("zip");
     }
+
+    public String getStateName() {
+        return stateName;
+    }
+
+    public String getStateUrl() {
+        return stateUrl;
+    }
+
+    public String getCorrespondenceAddress() {
+        return correspondenceAddress;
+    }
+
+    public String getLocalName() {
+        return localName;
+    }
+
+    public String getLocalUrl() {
+        return localUrl;
+    }
+
+    public String getLocalPhone() {
+        return localPhone;
+    }
+
+    public String getLocalEmail() {
+        return localEmail;
+    }
+
+    public String getLocalAddress() {
+        return localAddress;
+    }
 }
 
 //state
