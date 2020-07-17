@@ -23,8 +23,8 @@ public class JurisdictionModel {
         jurisdictionModel.correspondenceAddress = addressFromJson(jsonObject.getJSONObject("electionAdministrationBody").getJSONObject("correspondenceAddress"));
         jurisdictionModel.localName = jsonObject.getJSONObject("local_jurisdiction").getString("name");
         jurisdictionModel.localUrl = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getString("electionInfoUrl");
-        jurisdictionModel.localPhone = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionOfficials").getString("officePhoneNumber");
-        jurisdictionModel.localEmail = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionOfficials").getString("emailAddress");
+        jurisdictionModel.localPhone = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("officePhoneNumber");
+        jurisdictionModel.localEmail = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("emailAddress");
         jurisdictionModel.localAddress = addressFromJson(jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONObject("physicalAddress"));
         return jurisdictionModel;
     }

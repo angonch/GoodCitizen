@@ -82,5 +82,6 @@ public class LocationsFragment extends Fragment {
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d(TAG, "onFailure", throwable);
             }
-        });    }
+        });
+    }
 }
