@@ -1,6 +1,7 @@
 package com.example.goodcitizen.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodcitizen.R;
+import com.example.goodcitizen.activities.LocationDetailsActivity;
 import com.example.goodcitizen.models.LocationModel;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -60,6 +64,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvLocationName = itemView.findViewById(R.id.tvLocationName);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(LocationModel location) {
@@ -68,7 +73,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                LocationModel location = locations.get(position);
+                Intent i = new Intent(context, LocationDetailsActivity.class);
+                i.putExtra(LocationModel.class.getSimpleName(), Parcels.wrap(location));
+                context.startActivity(i);
+            }
         }
     }
 }

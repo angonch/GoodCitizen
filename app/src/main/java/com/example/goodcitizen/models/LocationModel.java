@@ -3,6 +3,7 @@ package com.example.goodcitizen.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 import static com.example.goodcitizen.models.JurisdictionModel.addressFromJson;
 
 // locations where voter is eligible to drop off a completed ballot
+@Parcel
 public class LocationModel {
 
     private String locationName;
