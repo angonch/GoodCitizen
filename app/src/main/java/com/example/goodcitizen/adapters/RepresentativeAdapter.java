@@ -1,6 +1,7 @@
 package com.example.goodcitizen.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodcitizen.R;
+import com.example.goodcitizen.activities.RepresentativeDetailsActivity;
 import com.example.goodcitizen.models.RepresentativeModel;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -58,8 +62,9 @@ public class RepresentativeAdapter extends RecyclerView.Adapter<RepresentativeAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPosition = itemView.findViewById(R.id.tvPosition);
+            tvPosition = itemView.findViewById(R.id.tvOfficialName);
             tvName = itemView.findViewById(R.id.tvName);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(RepresentativeModel rep) {
@@ -69,7 +74,13 @@ public class RepresentativeAdapter extends RecyclerView.Adapter<RepresentativeAd
 
         @Override
         public void onClick(View view) {
-            
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                RepresentativeModel rep = representatives.get(position);
+                Intent i = new Intent(context, RepresentativeDetailsActivity.class);
+                i.putExtra(RepresentativeModel.class.getSimpleName(), Parcels.wrap(rep));
+                context.startActivity(i);
+            }
         }
     }
 }
