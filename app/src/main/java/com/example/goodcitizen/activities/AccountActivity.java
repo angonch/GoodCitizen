@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.goodcitizen.R;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -94,7 +95,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = etUsername.getText().toString();
                 String address = SignUpActivity.getAddress(etAddressLine1, etAddressLine2, etAddressLine3, etAddressCity, etAddressState, etAddressZip);
-                updateUser(user, username, address);
+                updateUser(user, username, address, resizedFile);
             }
         });
 
@@ -204,10 +205,13 @@ public class AccountActivity extends AppCompatActivity {
         etAddressZip.setText(address[5]);
     }
 
-    private void updateUser(ParseUser user, String username, String address) {
+    private void updateUser(ParseUser user, String username, String address, File photo) {
         // Update core properties
         user.setUsername(username);
         user.put("address", address);
+        if (resizedFile != null) {
+            user.put("profileImage", new ParseFile(photo));
+        }
         // Invoke signUpInBackground
         user.saveInBackground(new SaveCallback() {
             @Override

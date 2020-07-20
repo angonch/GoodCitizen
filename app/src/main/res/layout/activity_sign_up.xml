@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".activities.SignUpActivity">
 
+    <ImageView
+        android:id="@+id/ivProfilePic"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:scaleType="centerCrop"
+        tools:srcCompat="@android:drawable/ic_menu_camera" />
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
