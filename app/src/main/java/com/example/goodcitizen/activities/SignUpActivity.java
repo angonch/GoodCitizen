@@ -20,7 +20,9 @@ import androidx.core.content.FileProvider;
 
 import com.example.goodcitizen.R;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -82,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String address = getAddress(etAddressLine1, etAddressLine2, etAddressLine3, etAddressCity, etAddressState, etAddressZip);
-                signUpUser(email, username, password, address);
+                signUpUser(email, username, password, address, resizedFile);
             }
         });
     }
@@ -92,9 +94,9 @@ public class SignUpActivity extends AppCompatActivity {
                 etAddressCity.getText().toString() + "," + etAddressState.getText().toString() + "," + etAddressZip.getText().toString();
     }
 
-    private void signUpUser(String email, String username, String password, String address) {
+    private void signUpUser(String email, String username, String password, String address, final File photo) {
         // Create the ParseUser
-        ParseUser user = new ParseUser();
+        final ParseUser user = new ParseUser();
         // Set core properties
         user.setUsername(username);
         user.setPassword(password);
@@ -109,7 +111,25 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
+                    saveProfilePhoto(user, photo);
                     goMainActivity();
+                }
+            }
+        });
+    }
+
+    private void saveProfilePhoto(ParseUser user, File photo) {
+        if (resizedFile != null) {
+            user.put("profileImage", new ParseFile(photo));
+        }
+        // Invoke signUpInBackground
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with saving account changes ", e);
+                    Toast.makeText(SignUpActivity.this, "Issue with saving!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
