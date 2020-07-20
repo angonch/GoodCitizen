@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.goodcitizen.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -203,6 +204,10 @@ public class AccountActivity extends AppCompatActivity {
         etAddressCity.setText(address[3]);
         etAddressState.setText(address[4]);
         etAddressZip.setText(address[5]);
+        ParseFile image = user.getParseFile("profileImage");
+        if(image != null) {
+            Glide.with(getApplicationContext()).load(image.getUrl()).into(ivProfilePic);
+        }
     }
 
     private void updateUser(ParseUser user, String username, String address, File photo) {
