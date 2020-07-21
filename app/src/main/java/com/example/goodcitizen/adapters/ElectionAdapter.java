@@ -74,6 +74,7 @@ public class ElectionAdapter extends RecyclerView.Adapter<ElectionAdapter.ViewHo
             tvDate.setText(election.getDate());
         }
 
+        // TODO: REMOVE - no detail view, swipe to set notification instead
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

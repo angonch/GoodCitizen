@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,6 +57,9 @@ public class ElectionsFragment extends Fragment {
         rvElections.setAdapter(adapter);
         // set layout manager on recycler view
         rvElections.setLayoutManager(new LinearLayoutManager(getContext()));
+        // set Item Touch Helper to RV - for swiping
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(rvElections);
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(GoogleClient.getElectionsUrl(getContext()), new JsonHttpResponseHandler() {
@@ -80,4 +85,16 @@ public class ElectionsFragment extends Fragment {
             }
         });
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
 }
