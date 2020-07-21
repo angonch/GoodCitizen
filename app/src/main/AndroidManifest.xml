@@ -22,7 +22,6 @@
                 android:resource="@xml/fileprovider" />
         </provider>
         <activity android:name=".activities.LocationDetailsActivity" />
-        <activity android:name=".activities.ElectionDetailsActivity" />
         <activity android:name=".activities.RepresentativeDetailsActivity" />
         <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.SignUpActivity" />

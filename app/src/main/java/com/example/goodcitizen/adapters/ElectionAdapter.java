@@ -1,7 +1,6 @@
 package com.example.goodcitizen.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goodcitizen.R;
-import com.example.goodcitizen.activities.ElectionDetailsActivity;
 import com.example.goodcitizen.models.ElectionModel;
-
-import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -57,7 +53,7 @@ public class ElectionAdapter extends RecyclerView.Adapter<ElectionAdapter.ViewHo
         return elections.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvElectionName;
         TextView tvDate;
@@ -66,24 +62,11 @@ public class ElectionAdapter extends RecyclerView.Adapter<ElectionAdapter.ViewHo
             super(itemView);
             tvElectionName = itemView.findViewById(R.id.tvElectionName);
             tvDate = itemView.findViewById(R.id.tvDate);
-            itemView.setOnClickListener(this);
         }
 
         public void bind(ElectionModel election) {
             tvElectionName.setText(election.getElectionName());
             tvDate.setText(election.getDate());
-        }
-
-        // TODO: REMOVE - no detail view, swipe to set notification instead
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
-                ElectionModel election = elections.get(position);
-                Intent i = new Intent(context, ElectionDetailsActivity.class);
-                i.putExtra(ElectionModel.class.getSimpleName(), Parcels.wrap(election));
-                context.startActivity(i);
-            }
         }
     }
 }
