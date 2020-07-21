@@ -42,4 +42,14 @@ public class ElectionModel {
     public String getDivisionId() {
         return divisionId;
     }
+
+    // integer array of date - {YYYY,MM,DD}
+    public List<Integer> getDateArray() {
+        String[] dateArray = date.split("-");
+        List<Integer> arr = new ArrayList<>();
+        for(String s : dateArray) {
+            arr.add(Integer.parseInt(s));
+        }
+        return arr;
+    }
 }

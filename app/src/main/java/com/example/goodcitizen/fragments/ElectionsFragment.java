@@ -1,7 +1,9 @@
 package com.example.goodcitizen.fragments;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -35,6 +38,7 @@ public class ElectionsFragment extends Fragment {
 
     public static final String TAG = "ElectionsFragment";
     List<ElectionModel> elections;
+    ElectionAdapter adapter;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -55,7 +59,7 @@ public class ElectionsFragment extends Fragment {
         elections = new ArrayList<>();
 
         // create adapter
-        final ElectionAdapter adapter = new ElectionAdapter(getContext(), elections);
+        adapter = new ElectionAdapter(getContext(), elections);
         // set adapter on recycler view
         rvElections.setAdapter(adapter);
         // set layout manager on recycler view
@@ -97,8 +101,29 @@ public class ElectionsFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            // get election at item position
             int position = viewHolder.getAdapterPosition();
             ElectionModel election = elections.get(position);
+            List<Integer> date = election.getDateArray();
+
+            // new calendar event for date, set for midnight
+            Calendar c = Calendar.getInstance();
+            c.set(date.get(0), date.get(1) - 1, date.get(2));
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+
+            // start calendar event
+            Intent i = new Intent(Intent.ACTION_EDIT);
+            i.setType("vnd.android.cursor.item/event");
+            i.putExtra(CalendarContract.Events.TITLE, election.getElectionName());
+            i.putExtra(CalendarContract.Events.DESCRIPTION, "Don't Forget to Vote!");
+            i.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, c.getTimeInMillis());
+            i.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, c.getTimeInMillis());
+            i.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+            startActivity(i);
+
+            adapter.notifyItemChanged(position);
         }
 
         @Override
