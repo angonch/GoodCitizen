@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.fragments.ElectionsFragment;
-import com.example.goodcitizen.fragments.LocationsMapFragment;
+import com.example.goodcitizen.fragments.MapsFragment;
 import com.example.goodcitizen.fragments.VoterInfoRepsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         final Fragment fragment1 = new ElectionsFragment();
-        final Fragment fragment2 = new LocationsMapFragment();
+        final Fragment fragment2 = new MapsFragment();
         final Fragment fragment3 = new VoterInfoRepsFragment();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
