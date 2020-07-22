@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -42,6 +45,9 @@ public class MapsFragment extends Fragment {
     public static final String TAG = "MapsFragment";
     List<LocationModel> locations;
     LatLng currentLocation;
+
+    LinearLayout bottom_sheet;
+    BottomSheetBehavior sheetBehavior;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -90,7 +96,7 @@ public class MapsFragment extends Fragment {
         });
     }
 
-    private void addMarkers(GoogleMap googleMap) throws IOException {
+    private void addMarkers(final GoogleMap googleMap) throws IOException {
         currentLocation = getLatLngLocation((String)ParseUser.getCurrentUser().get("address")); // get lat/long point for user's address
         if(currentLocation != null) {
             // set user marker
@@ -103,14 +109,25 @@ public class MapsFragment extends Fragment {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         }
 
+        //TODO: adding loading circle
+
         // for each location, add marker
         for(LocationModel l : locations){
             LatLng latLng = getLatLngLocation(l.getAddress());
             // set location marker
-            googleMap.addMarker(new MarkerOptions()
+            Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(l.getLocationName()));
         }
+
+        // TODO: info window bottom sheet
+
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
     }
 
     // converts user String address to latitude and longitude point
@@ -155,5 +172,9 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+
+        bottom_sheet = view.findViewById(R.id.bottom_sheet);
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 }
