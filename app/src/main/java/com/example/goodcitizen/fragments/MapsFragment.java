@@ -1,5 +1,7 @@
 package com.example.goodcitizen.fragments;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,15 +18,20 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.models.LocationModel;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +41,7 @@ public class MapsFragment extends Fragment {
 
     public static final String TAG = "MapsFragment";
     List<LocationModel> locations;
+    LatLng currentLocation;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -52,7 +60,7 @@ public class MapsFragment extends Fragment {
         }
     };
 
-    private void queryLocations(GoogleMap googleMap) {
+    private void queryLocations(final GoogleMap googleMap) {
         locations = new ArrayList<>();
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -68,7 +76,8 @@ public class MapsFragment extends Fragment {
                     Log.i(TAG, "Results: " + results.toString());
                     locations.addAll(LocationModel.fromJsonArray(results)); // Modify locations list
                     Log.i(TAG, "Locations: " + locations.size());
-                } catch (JSONException e) {
+                    addMarkers(googleMap);
+                } catch (JSONException | IOException e) {
                     Log.e(TAG, "Hit json exception", e);
                     e.printStackTrace();
                 }
@@ -79,6 +88,48 @@ public class MapsFragment extends Fragment {
                 Log.d(TAG, "onFailure", throwable);
             }
         });
+    }
+
+    private void addMarkers(GoogleMap googleMap) throws IOException {
+        currentLocation = getUserLocation(); // get lat/long point for user's address
+        if(currentLocation != null) {
+            // set user marker
+            googleMap.addMarker(new MarkerOptions()
+                    .position(currentLocation)
+                    .title("Me")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+
+            //change the view to the user location with a view of 15
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
+        }
+
+
+    }
+
+    // converts user String address to latitude and longitude point
+    private LatLng getUserLocation() {
+        Geocoder coder = new Geocoder(getContext());
+        List<Address> address;
+
+        try {
+            address = coder.getFromLocationName((String)ParseUser.getCurrentUser().get("address"),5);
+            if (address!=null) {
+
+                Address location = address.get(0);
+                Log.i(TAG, "GeoCode: " + location.getLatitude() + ", " + location.getLongitude());
+
+                location.getLatitude();
+                location.getLongitude();
+
+                return new LatLng(location.getLatitude(),
+                        location.getLongitude());
+
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Hit geocode exception", e);
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Nullable

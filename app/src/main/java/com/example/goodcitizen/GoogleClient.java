@@ -9,8 +9,6 @@ public class GoogleClient {
     public static final String VOTER_INFO_QUERY_URL = "https://www.googleapis.com/civicinfo/v2/voterinfo?key=";
     public static final String REPRESENTATIVE_INFO_QUERY_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key=";
 
-
-
     public static String getElectionsUrl(Context context) {
         return ELECTIONS_URL + context.getResources().getString(R.string.API_KEY);
     }
