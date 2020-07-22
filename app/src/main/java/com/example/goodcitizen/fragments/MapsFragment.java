@@ -175,6 +175,6 @@ public class MapsFragment extends Fragment {
 
         bottom_sheet = view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
     }
 }
