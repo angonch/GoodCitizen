@@ -91,7 +91,7 @@ public class MapsFragment extends Fragment {
     }
 
     private void addMarkers(GoogleMap googleMap) throws IOException {
-        currentLocation = getUserLocation(); // get lat/long point for user's address
+        currentLocation = getLatLngLocation((String)ParseUser.getCurrentUser().get("address")); // get lat/long point for user's address
         if(currentLocation != null) {
             // set user marker
             googleMap.addMarker(new MarkerOptions()
@@ -103,19 +103,26 @@ public class MapsFragment extends Fragment {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         }
 
-
+        // for each location, add marker
+        for(LocationModel l : locations){
+            LatLng latLng = getLatLngLocation(l.getAddress());
+            // set location marker
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(l.getLocationName()));
+        }
     }
 
     // converts user String address to latitude and longitude point
-    private LatLng getUserLocation() {
+    private LatLng getLatLngLocation(String address) {
         Geocoder coder = new Geocoder(getContext());
-        List<Address> address;
+        List<Address> addressResults;
 
         try {
-            address = coder.getFromLocationName((String)ParseUser.getCurrentUser().get("address"),5);
-            if (address!=null) {
+            addressResults = coder.getFromLocationName(address,5);
+            if (addressResults!=null) {
 
-                Address location = address.get(0);
+                Address location = addressResults.get(0);
                 Log.i(TAG, "GeoCode: " + location.getLatitude() + ", " + location.getLongitude());
 
                 location.getLatitude();
