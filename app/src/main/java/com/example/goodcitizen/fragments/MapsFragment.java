@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +49,7 @@ public class MapsFragment extends Fragment {
 
     LinearLayout bottom_sheet;
     BottomSheetBehavior sheetBehavior;
+    ProgressBar progressBar;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -109,8 +111,6 @@ public class MapsFragment extends Fragment {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         }
 
-        //TODO: adding loading circle
-
         // for each location, add marker
         for(LocationModel l : locations){
             LatLng latLng = getLatLngLocation(l.getAddress());
@@ -119,6 +119,9 @@ public class MapsFragment extends Fragment {
                     .position(latLng)
                     .title(l.getLocationName()));
         }
+
+        // finish loading animation
+        progressBar.setVisibility(View.GONE);
 
         // TODO: info window bottom sheet
 
@@ -176,5 +179,7 @@ public class MapsFragment extends Fragment {
         bottom_sheet = view.findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
         sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        progressBar = view.findViewById(R.id.progressBar);
     }
 }
