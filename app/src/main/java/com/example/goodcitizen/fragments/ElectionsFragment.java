@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -22,6 +25,7 @@ import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.adapters.ElectionAdapter;
 import com.example.goodcitizen.models.ElectionModel;
+import com.parse.ParseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +42,12 @@ public class ElectionsFragment extends Fragment {
 
     public static final String TAG = "ElectionsFragment";
     List<ElectionModel> elections;
+    List<ElectionModel> allElections;
+    List<ElectionModel> filteredElections;
     ElectionAdapter adapter;
+
+    Spinner spFilter;
+    String[] filterOptions = {"Show All", "National", "Related to Me"};
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -56,7 +65,10 @@ public class ElectionsFragment extends Fragment {
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
         RecyclerView rvElections = view.findViewById(R.id.rvElections);
+
         elections = new ArrayList<>();
+        allElections = new ArrayList<>();
+        filteredElections = new ArrayList<>();
 
         // create adapter
         adapter = new ElectionAdapter(getContext(), elections);
@@ -77,8 +89,8 @@ public class ElectionsFragment extends Fragment {
                 try {
                     JSONArray results = jsonObject.getJSONArray("elections");
                     Log.i(TAG, "Results: " + results.toString());
-                    elections.addAll(ElectionModel.fromJsonArray(results)); // Modify elections list
-                    adapter.notifyDataSetChanged();
+                    allElections.addAll(ElectionModel.fromJsonArray(results));
+                    showAllElections();
                     Log.i(TAG, "Elections: " + elections.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);
@@ -91,6 +103,57 @@ public class ElectionsFragment extends Fragment {
                 Log.d(TAG, "onFailure", throwable);
             }
         });
+
+        spFilter = view.findViewById(R.id.spFilter);
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, filterOptions);
+
+        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spFilter.setAdapter(spAdapter);
+        spFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i) {
+                    case 0:
+                        showAllElections();
+                        break;
+                    case 1:
+                        filterByNational();
+                        break;
+                    case 2:
+                    default:
+                        filterByUserRelated();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void filterByUserRelated() {
+        String[] userAddress = ParseUser.getCurrentUser().get("address").toString().split(",");
+        String state = userAddress[userAddress.length - 2];
+        filteredElections = ElectionModel.filterRelatedToUser(allElections, state);
+        elections.clear();
+        elections.addAll(filteredElections);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void filterByNational() {
+        filteredElections = ElectionModel.filterNational(allElections);
+        elections.clear();
+        elections.addAll(filteredElections);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void showAllElections() {
+        elections.clear();
+        elections.addAll(allElections);
+        adapter.notifyDataSetChanged();
     }
 
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {

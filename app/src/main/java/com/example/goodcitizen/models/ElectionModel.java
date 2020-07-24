@@ -11,6 +11,9 @@ import java.util.List;
 @Parcel
 public class ElectionModel {
 
+    public static final String NATIONAL_DIVISION_ID = "ocd-division/country:us";
+    public static final String STATE_DIVISION_ID = "ocd-division/country:us/state:";
+
     private String electionName;
     private String date;
     private String divisionId;
@@ -29,6 +32,27 @@ public class ElectionModel {
             elections.add(fromJson(jsonArray.getJSONObject(i)));
         }
         return elections;
+    }
+
+    public static List<ElectionModel> filterNational(List<ElectionModel> allElections) {
+        List<ElectionModel> filtered = new ArrayList<>();
+        for(ElectionModel e : allElections) {
+            if(e.divisionId.equals(NATIONAL_DIVISION_ID)) {
+                filtered.add(e);
+            }
+        }
+        return filtered;
+    }
+
+    public static List<ElectionModel> filterRelatedToUser(List<ElectionModel> allElections, String idToFilterBy) {
+        List<ElectionModel> filtered = new ArrayList<>();
+        String stateDivisionId = STATE_DIVISION_ID + idToFilterBy;
+        for(ElectionModel e : allElections) {
+            if(e.divisionId.equals(NATIONAL_DIVISION_ID) || e.divisionId.equals(stateDivisionId)) {
+                filtered.add(e);
+            }
+        }
+        return filtered;
     }
 
     public String getElectionName() {
