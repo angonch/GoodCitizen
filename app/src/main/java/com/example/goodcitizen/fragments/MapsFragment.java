@@ -1,14 +1,18 @@
 package com.example.goodcitizen.fragments;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +32,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -47,8 +50,6 @@ public class MapsFragment extends Fragment {
     List<LocationModel> locations;
     LatLng currentLocation;
 
-    LinearLayout bottom_sheet;
-    BottomSheetBehavior sheetBehavior;
     ProgressBar progressBar;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -117,18 +118,40 @@ public class MapsFragment extends Fragment {
             // set location marker
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
-                    .title(l.getLocationName()));
+                    .title(l.getLocationName())
+                    .snippet(l.getPollingHours()));
         }
 
         // finish loading animation
         progressBar.setVisibility(View.GONE);
 
-        // TODO: info window bottom sheet
+        // info window description
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker) {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                LinearLayout info = new LinearLayout(getContext());
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(getContext());
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(getContext());
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
             }
         });
     }
@@ -175,10 +198,6 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
-
-        bottom_sheet = view.findViewById(R.id.bottom_sheet);
-        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
         progressBar = view.findViewById(R.id.progressBar);
     }

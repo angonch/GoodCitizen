@@ -47,7 +47,6 @@ dependencies {
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation "com.google.android.gms:play-services-maps:$googlePlayVersion"
-    compile 'com.cocosw:bottomsheet:1.5.0@aar'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
 }
