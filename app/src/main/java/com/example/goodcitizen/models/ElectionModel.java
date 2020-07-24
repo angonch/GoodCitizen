@@ -12,7 +12,6 @@ import java.util.List;
 public class ElectionModel {
 
     public static final String NATIONAL_DIVISION_ID = "ocd-division/country:us";
-    public static final String STATE_DIVISION_ID = "ocd-division/country:us/state:";
 
     private String electionName;
     private String date;
@@ -46,9 +45,8 @@ public class ElectionModel {
 
     public static List<ElectionModel> filterRelatedToUser(List<ElectionModel> allElections, String idToFilterBy) {
         List<ElectionModel> filtered = new ArrayList<>();
-        String stateDivisionId = STATE_DIVISION_ID + idToFilterBy;
         for(ElectionModel e : allElections) {
-            if(e.divisionId.equals(NATIONAL_DIVISION_ID) || e.divisionId.equals(stateDivisionId)) {
+            if(e.divisionId.equals(NATIONAL_DIVISION_ID) || e.divisionId.equals(idToFilterBy)) {
                 filtered.add(e);
             }
         }

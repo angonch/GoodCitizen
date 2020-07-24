@@ -78,9 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String address = getAddress(etAddressLine1, etAddressLine2, etAddressLine3, etAddressCity, etAddressState, etAddressZip);
-                signUpUser(email, username, password, address, resizedFile);
+                String divisionId = getDivisionId(etAddressState);
+                signUpUser(email, username, password, address, divisionId, resizedFile);
             }
         });
+    }
+
+    private String getDivisionId(EditText etAddressState) {
+        return "ocd-division/country:us/state:" + etAddressState.getText().toString();
     }
 
     static String getAddress(EditText etAddressLine1, EditText etAddressLine2, EditText etAddressLine3, EditText etAddressCity, EditText etAddressState, EditText etAddressZip) {
@@ -88,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
                 etAddressCity.getText().toString() + "," + etAddressState.getText().toString() + "," + etAddressZip.getText().toString();
     }
 
-    private void signUpUser(String email, String username, String password, String address, final File photo) {
+    private void signUpUser(String email, String username, String password, String address, String divisionId, final File photo) {
         // Create the ParseUser
         final ParseUser user = new ParseUser();
         // Set core properties
@@ -96,6 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
         user.put("address", address);
+        user.put("divisionId", divisionId);
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             @Override

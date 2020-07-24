@@ -135,9 +135,7 @@ public class ElectionsFragment extends Fragment {
     }
 
     private void filterByUserRelated() {
-        String[] userAddress = ParseUser.getCurrentUser().get("address").toString().split(",");
-        String state = userAddress[userAddress.length - 2];
-        filteredElections = ElectionModel.filterRelatedToUser(allElections, state);
+        filteredElections = ElectionModel.filterRelatedToUser(allElections, (String)ParseUser.getCurrentUser().get("divisionId"));
         elections.clear();
         elections.addAll(filteredElections);
         adapter.notifyDataSetChanged();
