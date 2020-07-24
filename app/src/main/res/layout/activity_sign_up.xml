@@ -5,74 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.SignUpActivity">
+    tools:context=".activities.SignUpActivity"
+    android:background="@drawable/gradient_background">
 
     <ImageView
         android:id="@+id/ivProfilePic"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="48dp"
         android:scaleType="centerCrop"
-        tools:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:hint="e-mail"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:hint="e-mail*"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:hint="username"/>
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:hint="username*"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:hint="password*"
         android:inputType="textPassword"
-        android:hint="password"/>
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="* = required fields" />
     <EditText
         android:id="@+id/etAddressLine1"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:hint="line 1*"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/white"
+        android:hint="address line 1*"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
     <EditText
         android:id="@+id/etAddressLine2"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:hint="line 2"/>
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:hint="line 2"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
     <EditText
         android:id="@+id/etAddressLine3"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:hint="line 3"/>
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:hint="line 3"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
     <EditText
         android:id="@+id/etAddressCity"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:hint="city*"/>
-    <EditText
-        android:id="@+id/etAddressState"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/white"
+        android:hint="city*"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="state*"/>
-    <EditText
-        android:id="@+id/etAddressZip"
-        android:layout_width="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/etAddressState"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:hint="state*"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint" />
+
+        <EditText
+            android:id="@+id/etAddressZip"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:hint="zip*"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="zip*"/>
+        android:layout_marginStart="44dp"
+        android:text="*required fields"
+        android:textColor="@color/hint" />
+
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:text="CREATE ACCOUNT" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="CREATE ACCOUNT"
+        android:textColor="@color/white" />
 </LinearLayout>
