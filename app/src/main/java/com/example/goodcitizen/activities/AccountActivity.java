@@ -1,22 +1,28 @@
 package com.example.goodcitizen.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.goodcitizen.ImageUtils;
 import com.example.goodcitizen.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -33,7 +39,6 @@ public class AccountActivity extends AppCompatActivity {
 
     private Button btnLogout;
     private EditText etUsername;
-    private EditText etEmail;
     private EditText etAddressLine1;
     private EditText etAddressLine2;
     private EditText etAddressLine3;
@@ -57,7 +62,6 @@ public class AccountActivity extends AppCompatActivity {
 
         //TODO: error handling, only save what is changed
         etUsername = findViewById(R.id.etUsername);
-        etEmail = findViewById(R.id.etEmail);
         etAddressLine1 = findViewById(R.id.etAddressLine1);
         etAddressLine2 = findViewById(R.id.etAddressLine2);
         etAddressLine3 = findViewById(R.id.etAddressLine3);
@@ -74,13 +78,7 @@ public class AccountActivity extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
-                try {
-                    user.requestPasswordReset(email);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "Error getting request to update password", e);
-                }
+                showPasswordResetDialog();
             }
         });
 
@@ -110,6 +108,78 @@ public class AccountActivity extends AppCompatActivity {
                 ImageUtils.launchCamera(AccountActivity.this);
             }
         });
+    }
+
+    private void showPasswordResetDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Password Change");
+
+        View viewInflated = this.getLayoutInflater().inflate(R.layout.dialog_password_change, (ViewGroup) findViewById(android.R.id.content), false);
+        // Set up the input
+        final EditText etNewPassInput = viewInflated.findViewById(R.id.etNewPassword);
+        final EditText etConfirmInput = viewInflated.findViewById(R.id.etConfirmPassword);
+        // error message and listener for passwords to match
+        final TextInputLayout passwordLayout = viewInflated.findViewById(R.id.etConfirmPasswordLayout);
+        etConfirmInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Set error text
+                passwordLayout.setError("Passwords do not match");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String newPass = etNewPassInput.getText().toString();
+                String confirmPass = etConfirmInput.getText().toString();
+                if(!newPass.equals(confirmPass)) {
+                    passwordLayout.setError("Passwords do not match");
+                } else {
+                    passwordLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        builder.setView(viewInflated);
+
+        // Set up the buttons
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ParseUser user = ParseUser.getCurrentUser();
+                if(passwordLayout.getError() == null) {
+                    String newPass = etNewPassInput.getText().toString();
+                    user.setPassword(newPass);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                Log.e(TAG, "Issue with saving account changes ", e);
+                                Toast.makeText(AccountActivity.this, "Issue with saving!", Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
+                                Toast.makeText(AccountActivity.this, "Password saved!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(AccountActivity.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
     @Override

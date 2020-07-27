@@ -35,11 +35,6 @@
             android:layout_height="wrap_content"
             android:hint="username" />
     </LinearLayout>
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="enter e-mail to reset password"/>
     <Button
         android:id="@+id/btnResetPassword"
         android:layout_width="150dp"
