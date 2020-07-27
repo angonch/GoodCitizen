@@ -40,7 +40,7 @@ public class RepresentativesFragment extends Fragment {
     RepresentativeAdapter adapter;
 
     Spinner spFilter;
-    String[] filterOptions = {"Show All", "National", "State", "County"};
+    String[] filterOptions = {"Show All", "National", "State", "County", "City"};
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -119,8 +119,11 @@ public class RepresentativesFragment extends Fragment {
                         filterByState();
                         break;
                     case 3:
-                    default:
                         filterByCounty();
+                        break;
+                    case 4:
+                    default:
+                        filterByCity();
                         break;
                 }
             }
@@ -130,6 +133,13 @@ public class RepresentativesFragment extends Fragment {
 
             }
         });
+    }
+
+    private void filterByCity() {
+        filteredRepresentatives = RepresentativeModel.filterByPlace(allRepresentatives);
+        representatives.clear();
+        representatives.addAll(filteredRepresentatives);
+        adapter.notifyDataSetChanged();
     }
 
     private void filterByCounty() {

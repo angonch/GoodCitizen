@@ -80,7 +80,17 @@ public class RepresentativeModel {
     public static List<RepresentativeModel> filterByCounty(List<RepresentativeModel> allRepresentatives, String idToFilterBy) {
         List<RepresentativeModel> filtered = new ArrayList<>();
         for(RepresentativeModel r : allRepresentatives) {
-            if(r.divisionId.contains(idToFilterBy)) {
+            if(r.divisionId.contains(idToFilterBy) && !r.divisionId.contains("place")) {
+                filtered.add(r);
+            }
+        }
+        return filtered;
+    }
+
+    public static List<RepresentativeModel> filterByPlace(List<RepresentativeModel> allRepresentatives) {
+        List<RepresentativeModel> filtered = new ArrayList<>();
+        for(RepresentativeModel r : allRepresentatives) {
+            if(r.divisionId.contains("place")) {
                 filtered.add(r);
             }
         }
