@@ -11,6 +11,10 @@ import java.util.List;
 @Parcel
 public class RepresentativeModel {
 
+    public static final String NATIONAL_DIVISION_ID = "ocd-division/country:us";
+    public static final String STATE_DIVISION_ID = "ocd-division/country:us";
+    public static final String COUNTY_DIVISION_ID = "ocd-division/country:us";
+
     private String position;
     private String divisionId;
     private String officialName;
@@ -61,6 +65,26 @@ public class RepresentativeModel {
             representatives.addAll(fromJson(officesJsonArray.getJSONObject(i), officialsJsonArray));
         }
         return representatives;
+    }
+
+    public static List<RepresentativeModel> filter(List<RepresentativeModel> allRepresentatives, String idToFilterBy) {
+        List<RepresentativeModel> filtered = new ArrayList<>();
+        for(RepresentativeModel r : allRepresentatives) {
+            if(r.divisionId.equals(idToFilterBy)) {
+                filtered.add(r);
+            }
+        }
+        return filtered;
+    }
+
+    public static List<RepresentativeModel> filterByCounty(List<RepresentativeModel> allRepresentatives, String idToFilterBy) {
+        List<RepresentativeModel> filtered = new ArrayList<>();
+        for(RepresentativeModel r : allRepresentatives) {
+            if(r.divisionId.contains(idToFilterBy)) {
+                filtered.add(r);
+            }
+        }
+        return filtered;
     }
 
     public String getPosition() {
