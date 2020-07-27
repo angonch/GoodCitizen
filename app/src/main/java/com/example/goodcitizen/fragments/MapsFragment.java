@@ -112,14 +112,19 @@ public class MapsFragment extends Fragment {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
         }
 
-        // for each location, add marker
+        int i = 0;
+        // for first 30 locations, add marker
         for(LocationModel l : locations){
+            if(i == 30) {
+                break;
+            }
             LatLng latLng = getLatLngLocation(l.getAddress());
             // set location marker
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(l.getLocationName())
                     .snippet(l.getPollingHours()));
+            i++;
         }
 
         // finish loading animation
