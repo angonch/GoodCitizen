@@ -3,11 +3,11 @@ package com.example.goodcitizen.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,26 +16,29 @@ import com.example.goodcitizen.fragments.ElectionsFragment;
 import com.example.goodcitizen.fragments.MapsFragment;
 import com.example.goodcitizen.fragments.VoterInfoRepsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
-    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fab = findViewById(R.id.fabAccount);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // tool bar set up - clicking on profile icon starts account activity
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), AccountActivity.class);
-                startActivity(i);
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.account) {
+                    // compose icon clicked
+                    // navigate to compose activity
+                    return startAccountActivity();
+                }
+                return false;
             }
         });
 
@@ -70,5 +73,11 @@ public class MainActivity extends AppCompatActivity {
         });
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_elections);
+    }
+
+    private boolean startAccountActivity() {
+        Intent i = new Intent(getApplicationContext(), AccountActivity.class);
+        startActivity(i);
+        return true;
     }
 }
