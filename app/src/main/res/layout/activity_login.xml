@@ -34,12 +34,26 @@
         android:textColorHint="@color/hint" />
 
     <Button
+        android:id="@+id/btnForgotPass"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="#40000000"
+        android:shadowColor="#00FFFFFF"
+        android:text="Forgot Password"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white" />
+
+    <Button
         android:id="@+id/btnLogin"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Login"
         android:textColor="@color/white" />
@@ -49,9 +63,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLogin"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="#40000000"
         android:shadowColor="#00FFFFFF"
         android:text="No account? Sign Up Here"

@@ -78,7 +78,7 @@ public class AccountActivity extends AppCompatActivity {
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPasswordResetDialog();
+                showPasswordChangeDialog();
             }
         });
 
@@ -110,7 +110,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void showPasswordResetDialog() {
+    private void showPasswordChangeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Password Change");
 
@@ -143,7 +143,7 @@ public class AccountActivity extends AppCompatActivity {
 
             }
         });
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+
         builder.setView(viewInflated);
 
         // Set up the buttons
