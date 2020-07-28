@@ -22,6 +22,7 @@ import com.parse.RequestPasswordResetCallback;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
+
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
