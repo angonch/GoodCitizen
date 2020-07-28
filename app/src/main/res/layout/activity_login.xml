@@ -15,11 +15,11 @@
         android:layout_below="@+id/ivLogo"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="0dp"
         android:backgroundTint="@color/white"
         android:hint="username"
         android:textColor="@color/white"
-        android:textColorHint="@color/hint"/>
+        android:textColorHint="@color/hint" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -73,9 +73,13 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="0dp"
+        android:src="@drawable/goodcitizenlogo" />
 </RelativeLayout>
