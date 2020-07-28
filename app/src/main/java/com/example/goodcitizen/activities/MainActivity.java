@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 if(item.getItemId() == R.id.account) {
                     // compose icon clicked
                     // navigate to compose activity
+                    //TODO :ANIMATE EXPAND SCREEN
                     return startAccountActivity();
                 }
                 return false;

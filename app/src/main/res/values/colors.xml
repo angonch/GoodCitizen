@@ -2,8 +2,12 @@
 <resources>
     <color name="colorPrimary">#FCAB64</color>
     <color name="colorPrimaryDark">#FF5733</color>
-    <color name="colorAccent">#A1FCDF</color>
+    <color name="colorAccent">#6FFFE9</color>
     <color name="white">#FFFFFF</color>
     <color name="green">#7FD8BE</color>
     <color name="hint">#80FFFFFF</color>
+    <color name="cardBackground">#DCC9B6</color>
+    <color name="cardTextColor">#30343F</color>
+    <color name="cardFadedTextColor">#A130343F</color>
+    <color name="spinnerColor">#99A1A6</color>
 </resources>
