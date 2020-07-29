@@ -5,13 +5,16 @@
     <item
         android:id="@+id/action_elections"
         android:title="Elections"
+        android:icon="@drawable/ic_baseline_ballot_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_locations"
         android:title="Locations"
+        android:icon="@drawable/ic_baseline_location_on_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_reps"
         android:title="Representatives"
+        android:icon="@drawable/ic_baseline_account_balance_24"
         app:showAsAction="always" />
 </menu>

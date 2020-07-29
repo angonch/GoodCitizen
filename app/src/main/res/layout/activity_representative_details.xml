@@ -10,12 +10,10 @@
         android:id="@+id/tvOfficialName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPhoto"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@+id/ivPhoto"
+        android:layout_marginTop="4dp"
         android:text="Donald Trump"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -23,10 +21,13 @@
         android:id="@+id/ivPhoto"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
