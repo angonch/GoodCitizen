@@ -10,4 +10,7 @@
     <color name="cardTextColor">#30343F</color>
     <color name="cardFadedTextColor">#A130343F</color>
     <color name="spinnerColor">#99A1A6</color>
+    <color name="democratic">#90CAF9</color>
+    <color name="republican">#EF9A9A</color>
+    <color name="nonpartisan">#CFD8DC</color>
 </resources>

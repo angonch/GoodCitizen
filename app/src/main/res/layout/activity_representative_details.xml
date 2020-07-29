@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activities.RepresentativeDetailsActivity">
 
+    <ImageView
+        android:id="@+id/ivPartyBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivPhoto"
+        android:layout_alignBottom="@+id/tvPosition"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="-2dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/partybackground"
+        android:tint="@color/white" />
+
     <TextView
         android:id="@+id/tvOfficialName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivPhoto"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oxygen_bold"
         android:text="Donald Trump"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -28,6 +41,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="0dp"
+        android:layout_marginBottom="8dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -36,8 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvOfficialName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/oxygen"
         android:text="President"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -46,8 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPosition"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/oxygen"
         android:text="Republican" />
 </RelativeLayout>
