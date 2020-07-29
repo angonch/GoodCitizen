@@ -32,8 +32,8 @@
 
     <ImageView
         android:id="@+id/ivPhoto"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -66,4 +66,34 @@
         android:layout_marginEnd="36dp"
         android:fontFamily="@font/oxygen"
         android:text="Republican" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvParty"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/fblogo" />
+
+        <ImageView
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:src="@drawable/twitterlogo"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:src="@drawable/ytlogo"/>
+    </LinearLayout>
+
 </RelativeLayout>
