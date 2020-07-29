@@ -3,7 +3,6 @@ package com.example.goodcitizen.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,16 +54,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.action_elections:
                         fragment = fragment1;
-                        Toast.makeText(getApplicationContext(), "Elections page!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_locations:
                         fragment = fragment2;
-                        Toast.makeText(getApplicationContext(), "Locations page!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_reps:
                     default:
                         fragment = fragment3;
-                        Toast.makeText(getApplicationContext(), "Voter Info page!", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 // swap out fragments

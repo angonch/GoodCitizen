@@ -6,20 +6,21 @@ import org.json.JSONObject;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Parcel
 public class RepresentativeModel {
 
     public static final String NATIONAL_DIVISION_ID = "ocd-division/country:us";
-    public static final String STATE_DIVISION_ID = "ocd-division/country:us";
-    public static final String COUNTY_DIVISION_ID = "ocd-division/country:us";
 
     private String position;
     private String divisionId;
     private String officialName;
     private String party;
     private String photoUrl;
+    private Map<String, String> channels;
     //Stretch goal: private String websiteUrl;
     //Stretch goal variables:
     //channels variable
@@ -43,9 +44,24 @@ public class RepresentativeModel {
             } catch (Exception e) {
                 representative.photoUrl = "";
             }
+            try {
+                JSONArray channelsArray = officialsJsonArray.getJSONObject(i).getJSONArray("channels");
+                representative.channels = new HashMap<>();
+                representative.channels.putAll(channelsFromJsonArray(channelsArray));
+            } catch (Exception e) {
+                representative.channels = null;
+            }
             representatives.add(representative);
         }
         return representatives;
+    }
+
+    private static Map<String, String> channelsFromJsonArray(JSONArray channelsArray) throws JSONException {
+        Map<String, String> channels = new HashMap<>();
+        for (int i = 0; i < channelsArray.length(); i++) {
+            channels.put(channelsArray.getJSONObject(i).getString("type"), channelsArray.getJSONObject(i).getString("id"));
+        }
+        return channels;
     }
 
     private static List<Integer> indicesFromJsonArray(JSONArray officialIndices) throws JSONException {
