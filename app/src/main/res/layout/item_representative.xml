@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    android:orientation="horizontal"
+    app:cardBackgroundColor="@color/cardBackground">
 
-    <TextView
-        android:id="@+id/tvOfficialName"
+    <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="President"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-    <TextView
-        android:id="@+id/tvName"
-        android:text="Donald Trump"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvOfficialName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="President"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/oxygen_bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/cardTextColor"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:text="Donald Trump"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/oxygen"
+            android:textColor="@color/cardFadedTextColor"/>
+    </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

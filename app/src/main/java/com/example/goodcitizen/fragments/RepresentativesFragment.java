@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -68,7 +68,7 @@ public class RepresentativesFragment extends Fragment {
         // set adapter on recycler view
         rvRepresentatives.setAdapter(adapter);
         // set layout manager on recycler view
-        rvRepresentatives.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRepresentatives.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         // api call to get representatives
         AsyncHttpClient client = new AsyncHttpClient();
