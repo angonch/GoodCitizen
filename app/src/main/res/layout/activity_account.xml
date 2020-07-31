@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".activities.AccountActivity">
 
-    <Button
-        android:id="@+id/btnLogout"
+    <RelativeLayout
+        android:id="@+id/rlAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGOUT"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Account"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/labelAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen_bold"
+            android:text="Account"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <ImageView
             android:id="@+id/ivProfilePic"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_below="@id/labelAccount"
+            android:layout_alignParentStart="true"
+            android:layout_margin="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -33,53 +41,106 @@
             android:id="@+id/etUsername"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/labelAccount"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/ivProfilePic"
             android:hint="username" />
+
+        <Button
+            android:id="@+id/btnResetPassword"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etUsername"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/ivProfilePic"
+            android:background="@color/colorPrimary"
+            android:text="RESET PASSWORD"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlAccount"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen_bold"
+            android:text="Address"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <EditText
+            android:id="@+id/etAddressLine1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="line 1*" />
+
+        <EditText
+            android:id="@+id/etAddressLine2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="line 2" />
+
+        <EditText
+            android:id="@+id/etAddressLine3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="line 3" />
+
+        <EditText
+            android:id="@+id/etAddressCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="city*" />
+
+        <EditText
+            android:id="@+id/etAddressState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="state*" />
+
+        <EditText
+            android:id="@+id/etAddressZip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oxygen"
+            android:hint="zip*" />
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:background="@color/colorPrimary"
+            android:text="SAVE CHANGES"
+            android:textColor="@color/white" />
     </LinearLayout>
-    <Button
-        android:id="@+id/btnResetPassword"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="RESET PASSWORD" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-    <EditText
-        android:id="@+id/etAddressLine1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="line 1*"/>
-    <EditText
-        android:id="@+id/etAddressLine2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="line 2"/>
-    <EditText
-        android:id="@+id/etAddressLine3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="line 3"/>
-    <EditText
-        android:id="@+id/etAddressCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="city*"/>
-    <EditText
-        android:id="@+id/etAddressState"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="state*"/>
-    <EditText
-        android:id="@+id/etAddressZip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="zip*"/>
     <Button
-        android:id="@+id/btnSaveChanges"
+        android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAVE CHANGES" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:backgroundTint="@color/green"
+        android:text="Logout"
+        android:textColor="@color/white" />
 
-</LinearLayout>
+</RelativeLayout>

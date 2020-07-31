@@ -6,11 +6,12 @@
     <color name="white">#FFFFFF</color>
     <color name="green">#7FD8BE</color>
     <color name="hint">#80FFFFFF</color>
-    <color name="cardBackground">#DCC9B6</color>
-    <color name="cardTextColor">#30343F</color>
+    <color name="cardBackground">#C5E3FE</color>
+    <color name="cardTextColor">#0D1720</color>
     <color name="cardFadedTextColor">#A130343F</color>
     <color name="spinnerColor">#99A1A6</color>
     <color name="democratic">#90CAF9</color>
     <color name="republican">#EF9A9A</color>
     <color name="nonpartisan">#CFD8DC</color>
+    <color name="background">#FFF4EC</color>
 </resources>
