@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.fragments.ElectionsFragment;
@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
+
+    private ElectionsFragment fragmentElections;
+    private MapsFragment fragmentMaps;
+    private VoterInfoRepsFragment fragmentVoterInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +47,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        final Fragment fragment1 = new ElectionsFragment();
-        final Fragment fragment2 = new MapsFragment();
-        final Fragment fragment3 = new VoterInfoRepsFragment();
+        fragmentElections = new ElectionsFragment();
+        fragmentMaps = new MapsFragment();
+        fragmentVoterInfo = new VoterInfoRepsFragment();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 // menu item is one of the three items - check which item has been tapped
-                Fragment fragment;
                 switch (menuItem.getItemId()) {
                     case R.id.action_elections:
-                        fragment = fragment1;
+                        displayELectionFragment();
                         break;
                     case R.id.action_locations:
-                        fragment = fragment2;
+                        displayMapsFragment();
                         break;
                     case R.id.action_reps:
                     default:
-                        fragment = fragment3;
+                        displayVoterInfoFragment();
                         break;
                 }
-                // swap out fragments
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
         });
@@ -76,5 +77,53 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), AccountActivity.class);
         startActivity(i);
         return true;
+    }
+
+    // show elections fragment and hide others
+    protected void displayELectionFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (fragmentElections.isAdded()) { // if the fragment is already in container
+            ft.show(fragmentElections);
+        } else { // fragment needs to be added to frame container
+            ft.add(R.id.flContainer, fragmentElections, "fragmentElections");
+        }
+        // Hide fragment maps
+        if (fragmentMaps.isAdded()) { ft.hide(fragmentMaps); }
+        // Hide fragment voterInfo
+        if (fragmentVoterInfo.isAdded()) { ft.hide(fragmentVoterInfo); }
+        // Commit changes
+        ft.commit();
+    }
+
+    // show maps fragment and hide others
+    protected void displayMapsFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (fragmentMaps.isAdded()) { // if the fragment is already in container
+            ft.show(fragmentMaps);
+        } else { // fragment needs to be added to frame container
+            ft.add(R.id.flContainer, fragmentMaps, "fragmentMaps");
+        }
+        // Hide fragment maps
+        if (fragmentElections.isAdded()) { ft.hide(fragmentElections); }
+        // Hide fragment voterInfo
+        if (fragmentVoterInfo.isAdded()) { ft.hide(fragmentVoterInfo); }
+        // Commit changes
+        ft.commit();
+    }
+
+    // show voter info fragment and hide others
+    protected void displayVoterInfoFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (fragmentVoterInfo.isAdded()) { // if the fragment is already in container
+            ft.show(fragmentVoterInfo);
+        } else { // fragment needs to be added to frame container
+            ft.add(R.id.flContainer, fragmentVoterInfo, "fragmentVoterInfo");
+        }
+        // Hide fragment maps
+        if (fragmentMaps.isAdded()) { ft.hide(fragmentMaps); }
+        // Hide fragment voterInfo
+        if (fragmentElections.isAdded()) { ft.hide(fragmentElections); }
+        // Commit changes
+        ft.commit();
     }
 }
