@@ -121,6 +121,8 @@ public class RepresentativeModel {
 
     public String getPhotoUrl() { return photoUrl; }
 
+    public Map<String, String> getChannels() { return channels; }
+
     public String getFacebookUrl() {
         return "https://www.facebook.com/" + channels.get("Facebook") + "/";
     }

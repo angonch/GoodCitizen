@@ -15,6 +15,8 @@ import com.example.goodcitizen.models.RepresentativeModel;
 
 import org.parceler.Parcels;
 
+import java.util.Map;
+
 public class RepresentativeDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "RepresentativeDetailsActivity";
@@ -75,37 +77,57 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
             ivPhoto.setVisibility(View.GONE);
         }
 
-        // add links to social media icons
-        ivFacebook.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(representative.getFacebookUrl()));
-                startActivity(intent);
-            }
-        });
+        showChannelIcons();
+    }
 
-        // add links to social media icons
-        ivTwitter.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(representative.getTwitterUrl()));
-                startActivity(intent);
-            }
-        });
+    private void showChannelIcons() {
+        Map<String, String> repChannels = representative.getChannels();
+        if(!repChannels.containsKey("Facebook")) {
+            // hide social media icon if rep. doesn't have one
+            ivFacebook.setVisibility(View.GONE);
+        } else {
+            // add links to social media icons
+            ivFacebook.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(representative.getFacebookUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
 
-        // add links to social media icons
-        ivYouTube.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(representative.getYoutubeUrl()));
-                startActivity(intent);
-            }
-        });
+        if(!repChannels.containsKey("Twitter")) {
+            // hide social media icon if rep. doesn't have one
+            ivTwitter.setVisibility(View.GONE);
+        } else {
+            // add links to social media icons
+            ivTwitter.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(representative.getTwitterUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
+
+        if(!repChannels.containsKey("YouTube")) {
+            // hide social media icon if rep. doesn't have one
+            ivYouTube.setVisibility(View.GONE);
+        } else {
+            // add links to social media icons
+            ivYouTube.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(representative.getYoutubeUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }
