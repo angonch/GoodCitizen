@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +15,8 @@ public class VoterInfoRepsFragment extends Fragment {
 
     private TabLayout tabLayout;
     private FragmentManager fragmentManager;
+    private Fragment fragmentJurisdictionInfo;
+    private Fragment fragmentRepsInfo;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -32,22 +33,26 @@ public class VoterInfoRepsFragment extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
+
         fragmentManager = getChildFragmentManager();
+
         tabLayout = view.findViewById(R.id.tlVoterInfo);
-        final Fragment fragment1 = new JurisdictionFragment();
-        final Fragment fragment2 = new RepresentativesFragment();
+
+        fragmentJurisdictionInfo = new JurisdictionFragment();
+        fragmentRepsInfo = new RepresentativesFragment();
+        fragmentManager.beginTransaction().add(R.id.flVoterInfoContainer, fragmentJurisdictionInfo, "jurisdictionInfoTab").commit();
+        fragmentManager.beginTransaction().add(R.id.flVoterInfoContainer, fragmentRepsInfo, "representativesTab").commit();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Fragment fragment;
                 if(tab.getPosition() == 0) {
-                    fragment = fragment1;
-                    Toast.makeText(getContext(), "Jurisdiction info page!", Toast.LENGTH_SHORT).show();
+                    fragmentManager.beginTransaction().hide(fragmentRepsInfo).commit();
+                    fragmentManager.beginTransaction().show(fragmentJurisdictionInfo).commit();
                 } else {
-                    fragment = fragment2;
-                    Toast.makeText(getContext(), "Representatives page!", Toast.LENGTH_SHORT).show();
+                    fragmentManager.beginTransaction().hide(fragmentJurisdictionInfo).commit();
+                    fragmentManager.beginTransaction().show(fragmentRepsInfo).commit();
                 }
-                fragmentManager.beginTransaction().replace(R.id.flVoterInfoContainer, fragment).commit();
             }
 
             @Override
