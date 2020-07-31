@@ -1,5 +1,7 @@
 package com.example.goodcitizen.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +24,9 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
     TextView tvParty;
     ImageView ivPhoto;
     ImageView ivPartyBackground;
+    ImageView ivFacebook;
+    ImageView ivTwitter;
+    ImageView ivYouTube;
 
     RepresentativeModel representative;
 
@@ -35,6 +40,9 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
         tvParty = findViewById(R.id.tvParty);
         ivPhoto = findViewById(R.id.ivPhoto);
         ivPartyBackground = findViewById(R.id.ivPartyBackground);
+        ivFacebook = findViewById(R.id.ivFb);
+        ivTwitter = findViewById(R.id.ivTwitter);
+        ivYouTube = findViewById(R.id.ivYt);
 
         // unwrap representative data
         representative = Parcels.unwrap(getIntent().getParcelableExtra(RepresentativeModel.class.getSimpleName()));
@@ -43,6 +51,7 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
         tvOfficialName.setText(representative.getOfficialName());
         tvPosition.setText(representative.getPosition());
         tvParty.setText(representative.getParty());
+
         // set color of image view for party background color
         Integer color;
         switch(representative.getParty()) {
@@ -65,5 +74,38 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
         } else {
             ivPhoto.setVisibility(View.GONE);
         }
+
+        // add links to social media icons
+        ivFacebook.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(representative.getFacebookUrl()));
+                startActivity(intent);
+            }
+        });
+
+        // add links to social media icons
+        ivTwitter.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(representative.getTwitterUrl()));
+                startActivity(intent);
+            }
+        });
+
+        // add links to social media icons
+        ivYouTube.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(representative.getYoutubeUrl()));
+                startActivity(intent);
+            }
+        });
     }
 }

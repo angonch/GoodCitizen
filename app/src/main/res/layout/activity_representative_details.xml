@@ -73,27 +73,31 @@
         android:layout_below="@+id/tvParty"
         android:layout_marginTop="4dp"
         android:orientation="horizontal">
+
         <ImageView
-            android:layout_margin="16dp"
-            android:layout_weight="1"
+            android:id="@+id/ivFb"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
             android:src="@drawable/fblogo" />
 
         <ImageView
-            android:layout_margin="16dp"
-            android:layout_weight="1"
+            android:id="@+id/ivTwitter"
             android:layout_width="88dp"
             android:layout_height="88dp"
-            android:src="@drawable/twitterlogo"
-            android:scaleType="centerCrop"/>
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/twitterlogo" />
 
         <ImageView
-            android:layout_margin="16dp"
-            android:layout_weight="1"
+            android:id="@+id/ivYt"
             android:layout_width="88dp"
             android:layout_height="88dp"
-            android:src="@drawable/ytlogo"/>
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:src="@drawable/ytlogo" />
     </LinearLayout>
 
 </RelativeLayout>
