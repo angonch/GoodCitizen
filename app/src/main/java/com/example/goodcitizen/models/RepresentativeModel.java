@@ -113,24 +113,24 @@ public class RepresentativeModel {
         return filtered;
     }
 
-    public String getPosition() {
-        return position;
+    public String getPosition() { return position; }
+
+    public String getOfficialName() { return officialName; }
+
+    public String getParty() { return party; }
+
+    public String getPhotoUrl() { return photoUrl; }
+
+    public String getFacebookUrl() {
+        return "https://www.facebook.com/" + channels.get("Facebook") + "/";
     }
 
-    public String getDivisionId() {
-        return divisionId;
+    public String getTwitterUrl() {
+        return "https://www.twitter.com/" + channels.get("Twitter") + "/";
     }
 
-    public String getOfficialName() {
-        return officialName;
-    }
-
-    public String getParty() {
-        return party;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
+    public String getYoutubeUrl() {
+        return "https://www.youtube.com/" + channels.get("YouTube") + "/";
     }
 }
 //offices (jsonArray)
