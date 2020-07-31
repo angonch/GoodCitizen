@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.fragments.ElectionsFragment;
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
 
+    final FragmentManager fragmentManager = getSupportFragmentManager();
     private ElectionsFragment fragmentElections;
     private MapsFragment fragmentMaps;
     private VoterInfoRepsFragment fragmentVoterInfo;
@@ -45,9 +46,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        // add fragments to the fragment manager to hide and show later
         fragmentElections = new ElectionsFragment();
         fragmentMaps = new MapsFragment();
         fragmentVoterInfo = new VoterInfoRepsFragment();
+        fragmentManager.beginTransaction().add(R.id.flContainer, fragmentElections, "fragmentElections").commit();
+        fragmentManager.beginTransaction().add(R.id.flContainer, fragmentVoterInfo, "fragmentVoterInfo").commit();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -79,49 +85,25 @@ public class MainActivity extends AppCompatActivity {
 
     // show elections fragment and hide others
     protected void displayELectionFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (fragmentElections.isAdded()) { // if the fragment is already in container
-            ft.show(fragmentElections);
-        } else { // fragment needs to be added to frame container
-            ft.add(R.id.flContainer, fragmentElections, "fragmentElections");
-        }
-        // Hide fragment maps
-        if (fragmentMaps.isAdded()) { ft.hide(fragmentMaps); }
-        // Hide fragment voterInfo
-        if (fragmentVoterInfo.isAdded()) { ft.hide(fragmentVoterInfo); }
-        // Commit changes
-        ft.commit();
+        fragmentManager.beginTransaction().hide(fragmentMaps).commit();
+        fragmentManager.beginTransaction().hide(fragmentVoterInfo).commit();
+        fragmentManager.beginTransaction().show(fragmentElections).commit();
     }
 
     // show maps fragment and hide others
     protected void displayMapsFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (fragmentMaps.isAdded()) { // if the fragment is already in container
-            ft.show(fragmentMaps);
-        } else { // fragment needs to be added to frame container
-            ft.add(R.id.flContainer, fragmentMaps, "fragmentMaps");
+        fragmentManager.beginTransaction().hide(fragmentElections).commit();
+        fragmentManager.beginTransaction().hide(fragmentVoterInfo).commit();
+        if(!fragmentMaps.isAdded()) {
+            fragmentManager.beginTransaction().add(R.id.flContainer, fragmentMaps, "fragmentMaps").commit();
         }
-        // Hide fragment maps
-        if (fragmentElections.isAdded()) { ft.hide(fragmentElections); }
-        // Hide fragment voterInfo
-        if (fragmentVoterInfo.isAdded()) { ft.hide(fragmentVoterInfo); }
-        // Commit changes
-        ft.commit();
+        fragmentManager.beginTransaction().show(fragmentMaps).commit();
     }
 
     // show voter info fragment and hide others
     protected void displayVoterInfoFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (fragmentVoterInfo.isAdded()) { // if the fragment is already in container
-            ft.show(fragmentVoterInfo);
-        } else { // fragment needs to be added to frame container
-            ft.add(R.id.flContainer, fragmentVoterInfo, "fragmentVoterInfo");
-        }
-        // Hide fragment maps
-        if (fragmentMaps.isAdded()) { ft.hide(fragmentMaps); }
-        // Hide fragment voterInfo
-        if (fragmentElections.isAdded()) { ft.hide(fragmentElections); }
-        // Commit changes
-        ft.commit();
+        fragmentManager.beginTransaction().hide(fragmentElections).commit();
+        fragmentManager.beginTransaction().hide(fragmentMaps).commit();
+        fragmentManager.beginTransaction().show(fragmentVoterInfo).commit();
     }
 }
