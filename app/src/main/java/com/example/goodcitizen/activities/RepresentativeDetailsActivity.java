@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.example.goodcitizen.R;
@@ -29,6 +30,8 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
     ImageView ivFacebook;
     ImageView ivTwitter;
     ImageView ivYouTube;
+    CardView cvWesbite;
+    TextView tvUrl;
 
     RepresentativeModel representative;
 
@@ -45,6 +48,8 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
         ivFacebook = findViewById(R.id.ivFb);
         ivTwitter = findViewById(R.id.ivTwitter);
         ivYouTube = findViewById(R.id.ivYt);
+        cvWesbite = findViewById(R.id.cvWebsite);
+        tvUrl = findViewById(R.id.tvWebsite);
 
         // unwrap representative data
         representative = Parcels.unwrap(getIntent().getParcelableExtra(RepresentativeModel.class.getSimpleName()));
@@ -77,7 +82,25 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
             ivPhoto.setVisibility(View.GONE);
         }
 
+        // show social media icons/link urls
         showChannelIcons();
+
+        // show website/link url
+        if(representative.getUrl().isEmpty()) {
+            cvWesbite.setVisibility(View.GONE);
+        } else {
+            tvUrl.setText(representative.getUrl());
+            cvWesbite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(representative.getUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void showChannelIcons() {

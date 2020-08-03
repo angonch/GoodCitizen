@@ -55,6 +55,7 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        setUpWindowAnimations();
 
         // Get the ParseUser
         final ParseUser user = ParseUser.getCurrentUser();
@@ -107,6 +108,10 @@ public class AccountActivity extends AppCompatActivity {
                 ImageUtils.launchCamera(AccountActivity.this);
             }
         });
+    }
+
+    private void setUpWindowAnimations() {
+
     }
 
     private void showPasswordChangeDialog() {
