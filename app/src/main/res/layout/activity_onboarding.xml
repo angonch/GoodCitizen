@@ -46,7 +46,10 @@
         android:layout_above="@+id/llNavigation"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        app:stl_dividerThickness="1dp"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorThickness="3dp"
+        stl_indicatorWidth="3dp"
+        stl_indicatorCornerRadius="3"
         app:stl_indicatorColor="@color/colorAccent" />
 
 </RelativeLayout>
