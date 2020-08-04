@@ -107,12 +107,12 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with login ", e);
-                    Toast.makeText(SignUpActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Issue with sign up ", e);
+                    Toast.makeText(SignUpActivity.this, "Issue with sign up!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     saveProfilePhoto(user, photo);
-                    goMainActivity();
+                    goOnboardingActivity();
                 }
             }
         });
@@ -135,9 +135,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+    protected void goOnboardingActivity() {
+        Intent intent = new Intent(SignUpActivity.this, OnboardingActivity.class);
+        startActivity(intent);
         finish();
     }
 

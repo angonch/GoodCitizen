@@ -22,14 +22,17 @@ public class OnboardingActivity extends FragmentActivity {
     private ViewPager pager;
     private SmartTabLayout indicator;
     private Button next;
+    private Button skip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_onboarding);
 
         pager = findViewById(R.id.vpPager);
         indicator = findViewById(R.id.stlIndicator);
         next = findViewById(R.id.btnNext);
+        skip = findViewById(R.id.btnSkip);
 
         FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -65,12 +68,22 @@ public class OnboardingActivity extends FragmentActivity {
             }
         });
 
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishOnboarding();
+            }
+        });
+
+
         indicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 if(position == 2){
+                    skip.setVisibility(View.GONE);
                     next.setText("Done");
                 } else {
+                    skip.setVisibility(View.VISIBLE);
                     next.setText("Next");
                 }
             }
