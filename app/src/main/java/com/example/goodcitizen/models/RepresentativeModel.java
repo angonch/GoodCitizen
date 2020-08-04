@@ -22,7 +22,7 @@ public class RepresentativeModel {
     private String photoUrl;
     private Map<String, String> channels;
     private String url;
-    //Stretch goal: private String websiteUrl;
+    private String email;
     //Stretch goal variables:
     //channels variable
     //emails variable
@@ -56,6 +56,11 @@ public class RepresentativeModel {
                 representative.url = (String)officialsJsonArray.getJSONObject(i).getJSONArray("urls").get(0);
             } catch (Exception e) {
                 representative.url = "";
+            }
+            try {
+                representative.email = (String)officialsJsonArray.getJSONObject(i).getJSONArray("emails").get(0);
+            } catch (Exception e) {
+                representative.email = "";
             }
             representatives.add(representative);
         }
@@ -130,6 +135,8 @@ public class RepresentativeModel {
     public Map<String, String> getChannels() { return channels; }
 
     public String getUrl() { return url; }
+
+    public String getEmail() { return email; }
 
     public String getFacebookUrl() {
         return "https://www.facebook.com/" + channels.get("Facebook") + "/";

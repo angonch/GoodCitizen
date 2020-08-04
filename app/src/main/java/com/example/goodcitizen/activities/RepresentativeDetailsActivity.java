@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +28,14 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
     TextView tvParty;
     ImageView ivPhoto;
     ImageView ivPartyBackground;
+    LinearLayout llChannels;
     ImageView ivFacebook;
     ImageView ivTwitter;
     ImageView ivYouTube;
     CardView cvWesbite;
     TextView tvUrl;
+    CardView cvEmail;
+    TextView tvEmail;
 
     RepresentativeModel representative;
 
@@ -45,11 +49,14 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
         tvParty = findViewById(R.id.tvParty);
         ivPhoto = findViewById(R.id.ivPhoto);
         ivPartyBackground = findViewById(R.id.ivPartyBackground);
+        llChannels = findViewById(R.id.llChannels);
         ivFacebook = findViewById(R.id.ivFb);
         ivTwitter = findViewById(R.id.ivTwitter);
         ivYouTube = findViewById(R.id.ivYt);
         cvWesbite = findViewById(R.id.cvWebsite);
         tvUrl = findViewById(R.id.tvWebsite);
+        cvEmail = findViewById(R.id.cvEmail);
+        tvEmail = findViewById(R.id.tvEmailUrl);
 
         // unwrap representative data
         representative = Parcels.unwrap(getIntent().getParcelableExtra(RepresentativeModel.class.getSimpleName()));
@@ -101,10 +108,32 @@ public class RepresentativeDetailsActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // show email/link url
+        if(representative.getEmail().isEmpty()) {
+            cvEmail.setVisibility(View.GONE);
+        } else {
+            final String email = representative.getEmail();
+            tvEmail.setText(email);
+            cvEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("message/rfc822");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+
+                    startActivity(Intent.createChooser(intent, "Send Email"));
+                }
+            });
+        }
     }
 
     private void showChannelIcons() {
         Map<String, String> repChannels = representative.getChannels();
+        if(repChannels == null) {
+            llChannels.setVisibility(View.GONE);
+            return;
+        }
         if(!repChannels.containsKey("Facebook")) {
             // hide social media icon if rep. doesn't have one
             ivFacebook.setVisibility(View.GONE);
