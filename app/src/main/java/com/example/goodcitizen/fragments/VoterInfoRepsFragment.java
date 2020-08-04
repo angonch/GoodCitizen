@@ -47,11 +47,11 @@ public class VoterInfoRepsFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition() == 0) {
-                    fragmentManager.beginTransaction().hide(fragmentRepsInfo).commit();
-                    fragmentManager.beginTransaction().show(fragmentJurisdictionInfo).commit();
-                } else {
                     fragmentManager.beginTransaction().hide(fragmentJurisdictionInfo).commit();
                     fragmentManager.beginTransaction().show(fragmentRepsInfo).commit();
+                } else {
+                    fragmentManager.beginTransaction().hide(fragmentRepsInfo).commit();
+                    fragmentManager.beginTransaction().show(fragmentJurisdictionInfo).commit();
                 }
             }
 
