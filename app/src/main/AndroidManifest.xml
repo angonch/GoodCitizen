@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.OnboardingActivity"></activity>
         <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +56,7 @@
         <activity android:name=".activities.RepresentativeDetailsActivity" />
         <activity android:name=".activities.AccountActivity" />
         <activity android:name=".activities.SignUpActivity" />
-        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity" />
     </application>
 

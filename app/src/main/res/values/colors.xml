@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#FF5733</color>
     <color name="colorAccent">#6FFFE9</color>
     <color name="white">#FFFFFF</color>
-    <color name="green">#7FD8BE</color>
+    <color name="green">#2196F3</color>
     <color name="hint">#80FFFFFF</color>
     <color name="cardBackground">#C5E3FE</color>
     <color name="cardTextColor">#0D1720</color>
@@ -14,4 +14,6 @@
     <color name="republican">#EF9A9A</color>
     <color name="nonpartisan">#CFD8DC</color>
     <color name="background">#FFF4EC</color>
+    <color name="tab_indicator_gray">#c0c0c0</color>
+    <color name="intro_description_color">#656565</color>
 </resources>
