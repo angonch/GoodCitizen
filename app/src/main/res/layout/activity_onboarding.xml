@@ -27,7 +27,7 @@
             app:stl_indicatorColor="@color/green" />
 
         <Button
-            android:id="@+id/next"
+            android:id="@+id/btnNext"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
