@@ -65,9 +65,26 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            queryLocations(googleMap);
+
+            // if a bundle not is passed in,query locations, otherwise show the single address
+            Bundle bundle = getArguments();
+            if(bundle == null || bundle.isEmpty()) {
+                queryLocations(googleMap);
+            } else {
+                String address = bundle.getString("address");
+                setMarker(address, googleMap);
+            }
         }
     };
+
+    private void setMarker(String address, final GoogleMap googleMap) {
+        LatLng latLng = getLatLngLocation(address);
+        // set location marker
+        googleMap.addMarker(new MarkerOptions().position(latLng));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        // finish loading animation
+        progressBar.setVisibility(View.GONE);
+    }
 
     private void queryLocations(final GoogleMap googleMap) {
         locations = new ArrayList<>();

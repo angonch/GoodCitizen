@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -55,6 +56,8 @@ public class JurisdictionFragment extends Fragment {
     private CardView cvLocalEmail;
     private CardView cvLocalUrl;
     private CardView cvLocalAddress;
+
+    private FragmentTransaction fragmentTransaction;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -205,14 +208,8 @@ public class JurisdictionFragment extends Fragment {
             cvLocalAddress.setVisibility(View.GONE);
         } else {
             tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
-            cvLocalAddress.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+            startMap(jurisdictionInfo.getLocalAddress());
         }
-
 
         try {
             String stateFlagUrl = GoogleClient.getStateFlagURL(jurisdictionInfo.getStateName());
@@ -220,5 +217,16 @@ public class JurisdictionFragment extends Fragment {
         } catch (Exception e) {
 
         }
+    }
+
+    // start google maps window at the bottom of the jurisdiction details view for the local
+    // address
+    private void startMap(String address) {
+        Fragment mapsFragment = new MapsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("address", address);
+        mapsFragment.setArguments(bundle);
+        fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.mvLocalMap, mapsFragment).commit();
     }
 }
