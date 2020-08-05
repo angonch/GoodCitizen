@@ -209,6 +209,12 @@ public class JurisdictionFragment extends Fragment {
         } else {
             tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
             startMap(jurisdictionInfo.getLocalAddress());
+            cvLocalAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         try {

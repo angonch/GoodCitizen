@@ -52,6 +52,8 @@ public class MapsFragment extends Fragment {
 
     ProgressBar progressBar;
 
+    View mapView;
+
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
         /**
@@ -65,7 +67,6 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-
             // if a bundle not is passed in,query locations, otherwise show the single address
             Bundle bundle = getArguments();
             if(bundle == null || bundle.isEmpty()) {
@@ -73,9 +74,28 @@ public class MapsFragment extends Fragment {
             } else {
                 String address = bundle.getString("address");
                 setMarker(address, googleMap);
+                disallowParentScroll(googleMap);
             }
         }
     };
+
+    private void disallowParentScroll(GoogleMap googleMap) {
+        googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
+            @Override
+            public void onCameraMoveStarted(int i) {
+                mapView = getView().findViewById(R.id.map);
+                mapView.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
+
+        googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                mapView = getView().findViewById(R.id.map);
+                mapView.getParent().requestDisallowInterceptTouchEvent(false);
+            }
+        });
+    }
 
     private void setMarker(String address, final GoogleMap googleMap) {
         LatLng latLng = getLatLngLocation(address);
