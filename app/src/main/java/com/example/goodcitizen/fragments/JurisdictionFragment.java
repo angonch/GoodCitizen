@@ -204,15 +204,22 @@ public class JurisdictionFragment extends Fragment {
             });
         }
 
-        if(jurisdictionInfo.getLocalAddress() == null || jurisdictionInfo.getLocalAddress().isEmpty()) {
+        final String address = jurisdictionInfo.getLocalAddress();
+        if(address == null || address.isEmpty()) {
             cvLocalAddress.setVisibility(View.GONE);
         } else {
-            tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
-            startMap(jurisdictionInfo.getLocalAddress());
+            tvLocalAddress.setText(address);
+            startMap(address);
             cvLocalAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    final Uri mapsIntentUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + Uri.encode(address));
 
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapsIntentUri);
+                    // Make sure there is an app that can handle this intent
+                    if (mapIntent.resolveActivity(getContext().getPackageManager()) != null) {
+                        startActivity(mapIntent);
+                    }
                 }
             });
         }
