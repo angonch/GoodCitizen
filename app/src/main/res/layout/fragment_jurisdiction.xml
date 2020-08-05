@@ -6,30 +6,93 @@
     android:orientation="vertical"
     tools:context=".fragments.JurisdictionFragment">
 
+    <ImageView
+        android:id="@+id/ivStateFlag"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_baseline_emoji_flags_24" />
     <TextView
         android:id="@+id/tvStateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="STATE NAME"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:text="Washington"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="@font/oxygen_bold"
+        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:id="@+id/tvStateUrl"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvStateWebsite"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="state url" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp">
 
-    <TextView
-        android:id="@+id/tvStateAddress"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivStateSiteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_search_24"
+                android:tint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/tvStateUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/ivStateSiteIcon"
+                android:fontFamily="@font/oxygen_bold"
+                android:text="washington.gov.com"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvStateAddress"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="state address" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivStateLocationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_file_copy_24"
+                android:tint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/tvStateAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/ivStateLocationIcon"
+                android:fontFamily="@font/oxygen_bold"
+                android:text="grady way se po box"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvLocalName"

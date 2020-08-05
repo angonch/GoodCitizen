@@ -1,14 +1,22 @@
 package com.example.goodcitizen.fragments;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.RequestParams;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -21,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.Headers;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class JurisdictionFragment extends Fragment {
 
@@ -36,6 +46,9 @@ public class JurisdictionFragment extends Fragment {
     private TextView tvLocalEmail;
     private TextView tvLocalUrl;
     private TextView tvLocalAddress;
+    private ImageView ivStateFlag;
+    private CardView cvStateSite;
+    private CardView cvStateAddress;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -52,6 +65,18 @@ public class JurisdictionFragment extends Fragment {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         super.onViewCreated(view, savedInstanceState);
+
+        tvStateName = view.findViewById(R.id.tvStateName);
+        tvStateUrl = view.findViewById(R.id.tvStateUrl);
+        tvStateAddress = view.findViewById(R.id.tvStateAddress);
+        tvLocalName = view.findViewById(R.id.tvLocalName);
+        tvLocalPhone = view.findViewById(R.id.tvLocalPhone);
+        tvLocalEmail = view.findViewById(R.id.tvLocalEmail);
+        tvLocalUrl = view.findViewById(R.id.tvLocalUrl);
+        tvLocalAddress = view.findViewById(R.id.tvLocalAddress);
+        ivStateFlag = view.findViewById(R.id.ivStateFlag);
+        cvStateSite = view.findViewById(R.id.cvStateWebsite);
+        cvStateAddress = view.findViewById(R.id.cvStateAddress);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -81,22 +106,49 @@ public class JurisdictionFragment extends Fragment {
     }
 
     private void bindToViews(View view) {
-        tvStateName = view.findViewById(R.id.tvStateName);
-        tvStateUrl = view.findViewById(R.id.tvStateUrl);
-        tvStateAddress = view.findViewById(R.id.tvStateAddress);
-        tvLocalName = view.findViewById(R.id.tvLocalName);
-        tvLocalPhone = view.findViewById(R.id.tvLocalPhone);
-        tvLocalEmail = view.findViewById(R.id.tvLocalEmail);
-        tvLocalUrl = view.findViewById(R.id.tvLocalUrl);
-        tvLocalAddress = view.findViewById(R.id.tvLocalAddress);
-
         tvStateName.setText(jurisdictionInfo.getStateName());
-        tvStateUrl.setText(jurisdictionInfo.getStateUrl());
         tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
         tvLocalName.setText(jurisdictionInfo.getLocalName());
         tvLocalPhone.setText(jurisdictionInfo.getLocalPhone());
         tvLocalEmail.setText(jurisdictionInfo.getLocalEmail());
         tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
-        tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
+
+        if(jurisdictionInfo.getCorrespondenceAddress() == null || jurisdictionInfo.getCorrespondenceAddress().isEmpty()) {
+            cvStateAddress.setVisibility(View.GONE);
+        } else {
+            tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
+            cvStateAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ClipboardManager clipboard = getSystemService(getContext(), ClipboardManager.class);
+                    ClipData clip = ClipData.newPlainText("State Correspondence Address", jurisdictionInfo.getCorrespondenceAddress());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(getContext(), "Copied to Clipboard", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        if(jurisdictionInfo.getStateUrl() == null || jurisdictionInfo.getStateUrl().isEmpty()) {
+            cvStateSite.setVisibility(View.GONE);
+        } else {
+            tvStateUrl.setText(jurisdictionInfo.getStateUrl());
+            cvStateSite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(jurisdictionInfo.getStateUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
+
+        try {
+            String stateFlagUrl = GoogleClient.getStateFlagURL(jurisdictionInfo.getStateName());
+            Glide.with(getContext()).load(stateFlagUrl).into(ivStateFlag);
+        } catch (Exception e) {
+
+        }
     }
 }
