@@ -1,5 +1,6 @@
 package com.example.goodcitizen.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -49,6 +50,7 @@ public class JurisdictionFragment extends Fragment {
     private ImageView ivStateFlag;
     private CardView cvStateSite;
     private CardView cvStateAddress;
+    private CardView cvLocalPhone;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -77,6 +79,7 @@ public class JurisdictionFragment extends Fragment {
         ivStateFlag = view.findViewById(R.id.ivStateFlag);
         cvStateSite = view.findViewById(R.id.cvStateWebsite);
         cvStateAddress = view.findViewById(R.id.cvStateAddress);
+        cvLocalPhone = view.findViewById(R.id.cvLocalPhone);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -109,10 +112,10 @@ public class JurisdictionFragment extends Fragment {
         tvStateName.setText(jurisdictionInfo.getStateName());
         tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
         tvLocalName.setText(jurisdictionInfo.getLocalName());
-        tvLocalPhone.setText(jurisdictionInfo.getLocalPhone());
         tvLocalEmail.setText(jurisdictionInfo.getLocalEmail());
         tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
 
+        // on click listeners for clickable information
         if(jurisdictionInfo.getCorrespondenceAddress() == null || jurisdictionInfo.getCorrespondenceAddress().isEmpty()) {
             cvStateAddress.setVisibility(View.GONE);
         } else {
@@ -140,6 +143,24 @@ public class JurisdictionFragment extends Fragment {
                     intent.addCategory(Intent.CATEGORY_BROWSABLE);
                     intent.setData(Uri.parse(jurisdictionInfo.getStateUrl()));
                     startActivity(intent);
+                }
+            });
+        }
+
+        if(jurisdictionInfo.getLocalPhone() == null || jurisdictionInfo.getLocalPhone().isEmpty()) {
+            cvLocalPhone.setVisibility(View.GONE);
+        } else {
+            tvLocalPhone.setText(jurisdictionInfo.getLocalPhone());
+            cvLocalPhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                        callIntent.setData(Uri.parse("tel:"+jurisdictionInfo.getLocalPhone()));
+                        startActivity(callIntent);
+                    } catch (ActivityNotFoundException activityException) {
+                        Log.e("Calling a Phone Number", "Call failed", activityException);
+                    }
                 }
             });
         }

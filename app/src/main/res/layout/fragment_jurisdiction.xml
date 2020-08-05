@@ -13,13 +13,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_baseline_emoji_flags_24" />
+
     <TextView
         android:id="@+id/tvStateName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Washington"
+        android:text="STATE NAME"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:fontFamily="@font/oxygen_bold"
         android:layout_gravity="center_horizontal" />
@@ -54,7 +55,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/ivStateSiteIcon"
                 android:fontFamily="@font/oxygen_bold"
-                android:text="washington.gov.com"
+                android:text="state website"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -89,7 +90,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_toEndOf="@+id/ivStateLocationIcon"
                 android:fontFamily="@font/oxygen_bold"
-                android:text="grady way se po box"
+                android:text="state correspondence address"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -101,15 +102,44 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="LOCAL NAME"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="@font/oxygen_bold"
+        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:id="@+id/tvLocalPhone"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLocalPhone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="local phone" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivLocalPhoneIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_local_phone_24"
+                android:tint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/tvLocalPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/ivLocalPhoneIcon"
+                android:fontFamily="@font/oxygen_bold"
+                android:text="local phone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvLocalEmail"
