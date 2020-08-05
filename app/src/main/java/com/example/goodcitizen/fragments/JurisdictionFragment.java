@@ -48,9 +48,11 @@ public class JurisdictionFragment extends Fragment {
     private TextView tvLocalUrl;
     private TextView tvLocalAddress;
     private ImageView ivStateFlag;
+
     private CardView cvStateSite;
     private CardView cvStateAddress;
     private CardView cvLocalPhone;
+    private CardView cvLocalEmail;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -80,6 +82,7 @@ public class JurisdictionFragment extends Fragment {
         cvStateSite = view.findViewById(R.id.cvStateWebsite);
         cvStateAddress = view.findViewById(R.id.cvStateAddress);
         cvLocalPhone = view.findViewById(R.id.cvLocalPhone);
+        cvLocalEmail = view.findViewById(R.id.cvLocalEmail);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -112,7 +115,6 @@ public class JurisdictionFragment extends Fragment {
         tvStateName.setText(jurisdictionInfo.getStateName());
         tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
         tvLocalName.setText(jurisdictionInfo.getLocalName());
-        tvLocalEmail.setText(jurisdictionInfo.getLocalEmail());
         tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
 
         // on click listeners for clickable information
@@ -155,12 +157,28 @@ public class JurisdictionFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     try {
-                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                        callIntent.setData(Uri.parse("tel:"+jurisdictionInfo.getLocalPhone()));
-                        startActivity(callIntent);
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:"+jurisdictionInfo.getLocalPhone()));
+                        startActivity(intent);
                     } catch (ActivityNotFoundException activityException) {
                         Log.e("Calling a Phone Number", "Call failed", activityException);
                     }
+                }
+            });
+        }
+
+        if(jurisdictionInfo.getLocalEmail() == null || jurisdictionInfo.getLocalEmail().isEmpty()) {
+            cvLocalEmail.setVisibility(View.GONE);
+        } else {
+            tvLocalEmail.setText(jurisdictionInfo.getLocalEmail());
+            cvLocalEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("message/rfc822");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{jurisdictionInfo.getLocalEmail()});
+
+                    startActivity(Intent.createChooser(intent, "Send Email"));
                 }
             });
         }
