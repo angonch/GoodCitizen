@@ -53,6 +53,8 @@ public class JurisdictionFragment extends Fragment {
     private CardView cvStateAddress;
     private CardView cvLocalPhone;
     private CardView cvLocalEmail;
+    private CardView cvLocalUrl;
+    private CardView cvLocalAddress;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -83,6 +85,8 @@ public class JurisdictionFragment extends Fragment {
         cvStateAddress = view.findViewById(R.id.cvStateAddress);
         cvLocalPhone = view.findViewById(R.id.cvLocalPhone);
         cvLocalEmail = view.findViewById(R.id.cvLocalEmail);
+        cvLocalUrl = view.findViewById(R.id.cvLocalUrl);
+        cvLocalAddress = view.findViewById(R.id.cvLocalAddress);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -113,15 +117,13 @@ public class JurisdictionFragment extends Fragment {
 
     private void bindToViews(View view) {
         tvStateName.setText(jurisdictionInfo.getStateName());
-        tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
         tvLocalName.setText(jurisdictionInfo.getLocalName());
-        tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
 
         // on click listeners for clickable information
         if(jurisdictionInfo.getCorrespondenceAddress() == null || jurisdictionInfo.getCorrespondenceAddress().isEmpty()) {
             cvStateAddress.setVisibility(View.GONE);
         } else {
-            tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
+            tvStateAddress.setText(jurisdictionInfo.getCorrespondenceAddress());
             cvStateAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -182,6 +184,35 @@ public class JurisdictionFragment extends Fragment {
                 }
             });
         }
+
+        if(jurisdictionInfo.getLocalUrl() == null || jurisdictionInfo.getLocalUrl().isEmpty()) {
+            cvLocalUrl.setVisibility(View.GONE);
+        } else {
+            tvLocalUrl.setText(jurisdictionInfo.getLocalUrl());
+            cvLocalUrl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(jurisdictionInfo.getLocalUrl()));
+                    startActivity(intent);
+                }
+            });
+        }
+
+        if(jurisdictionInfo.getLocalAddress() == null || jurisdictionInfo.getLocalAddress().isEmpty()) {
+            cvLocalAddress.setVisibility(View.GONE);
+        } else {
+            tvLocalAddress.setText(jurisdictionInfo.getLocalAddress());
+            cvLocalAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
+
 
         try {
             String stateFlagUrl = GoogleClient.getStateFlagURL(jurisdictionInfo.getStateName());
