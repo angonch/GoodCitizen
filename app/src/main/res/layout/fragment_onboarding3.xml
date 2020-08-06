@@ -29,4 +29,15 @@
         android:text="@string/onboarding3"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="find out how to register"
+        android:textColor="#000000" />
 </RelativeLayout>
