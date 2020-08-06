@@ -2,4 +2,7 @@
     <string name="app_name">GoodCitizen</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding1">View upcoming elections, drop-off locations in your area, and your representatives as well as jurisdiction information!</string>
+    <string name="onboarding2">See details about your representatives and contact your officials via phone, email, or social media!</string>
+    <string name="onboarding3">Before we get started... remember to register to vote!</string>
 </resources>
