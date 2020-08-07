@@ -5,11 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.models.ElectionModel;
 
@@ -57,16 +60,23 @@ public class ElectionAdapter extends RecyclerView.Adapter<ElectionAdapter.ViewHo
 
         TextView tvElectionName;
         TextView tvDate;
+        ImageView ivElectionIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvElectionName = itemView.findViewById(R.id.tvElectionName);
             tvDate = itemView.findViewById(R.id.tvDate);
+            ivElectionIcon = itemView.findViewById(R.id.ivElectionIcon);
         }
 
         public void bind(ElectionModel election) {
             tvElectionName.setText(election.getElectionName());
             tvDate.setText(election.getDate());
+            if(election.getState() != null) {
+                Glide.with(context).load(GoogleClient.getStateFlagURL(election.getState())).into(ivElectionIcon);
+            } else {
+                Glide.with(context).load(R.drawable.usflag).into(ivElectionIcon);
+            }
         }
     }
 }
