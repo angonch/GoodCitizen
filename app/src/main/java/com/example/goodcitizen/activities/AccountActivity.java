@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,6 +50,8 @@ public class AccountActivity extends AppCompatActivity {
     private Button btnResetPassword;
     private ImageView ivProfilePic;
 
+    private ProgressBar progressBar;
+
     private File resizedFile;
 
     @Override
@@ -69,6 +72,8 @@ public class AccountActivity extends AppCompatActivity {
         etAddressState = findViewById(R.id.etAddressState);
         etAddressZip = findViewById(R.id.etAddressZip);
         ivProfilePic = findViewById(R.id.ivProfilePic);
+
+        progressBar = findViewById(R.id.progressBar);
 
         // fill in users information
         setTextFields(user);
@@ -96,6 +101,7 @@ public class AccountActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 ParseUser.logOut();
                 goLogoutActivity();
             }
@@ -266,6 +272,7 @@ public class AccountActivity extends AppCompatActivity {
     private void goLogoutActivity() {
         Intent i = new Intent(getApplicationContext(), LoginActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        progressBar.setVisibility(View.GONE);
         startActivity(i);
     }
 }

@@ -133,6 +133,17 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_above="@+id/btnLogout"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="gone" />
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
