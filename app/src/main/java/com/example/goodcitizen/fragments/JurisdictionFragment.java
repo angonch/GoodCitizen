@@ -25,6 +25,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.models.JurisdictionModel;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,6 +93,7 @@ public class JurisdictionFragment extends Fragment {
 
         final AsyncHttpClient client = new AsyncHttpClient();
         final RequestParams params = new RequestParams();
+        params.put("address", (String)ParseUser.getCurrentUser().get("address"));
         client.get(GoogleClient.getVoterInfoQueryUrl(getContext()),params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
