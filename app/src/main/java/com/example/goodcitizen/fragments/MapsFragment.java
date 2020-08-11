@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -51,6 +52,8 @@ public class MapsFragment extends Fragment {
     LatLng currentLocation;
 
     ProgressBar progressBar;
+
+    CardView cvMapNotif;
 
     View mapView;
 
@@ -132,6 +135,8 @@ public class MapsFragment extends Fragment {
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d(TAG, "onFailure", throwable);
+                cvMapNotif.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
@@ -146,7 +151,7 @@ public class MapsFragment extends Fragment {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
 
             //change the view to the user location with a view of 15
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
         }
 
         int i = 0;
@@ -242,5 +247,6 @@ public class MapsFragment extends Fragment {
         }
 
         progressBar = view.findViewById(R.id.progressBar);
+        cvMapNotif = view.findViewById(R.id.cvMapNotif);
     }
 }
