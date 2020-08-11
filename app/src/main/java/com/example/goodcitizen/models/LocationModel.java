@@ -23,8 +23,16 @@ public class LocationModel {
         LocationModel location = new LocationModel();
         location.locationName = jsonObject.getJSONObject("address").getString("locationName");
         location.address = addressFromJson(jsonObject.getJSONObject("address"));
-        location.pollingHours = jsonObject.getString("pollingHours");
-        location.voterService = jsonObject.getString("voterServices");
+        try {
+            location.pollingHours = jsonObject.getString("pollingHours");
+        } catch (Exception e) {
+            location.pollingHours = "";
+        }
+        try {
+            location.voterService = jsonObject.getString("voterServices");
+        } catch (Exception e) {
+            location.voterService = "";
+        }
         return location;
     }
 

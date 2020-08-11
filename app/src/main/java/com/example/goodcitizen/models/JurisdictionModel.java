@@ -20,11 +20,20 @@ public class JurisdictionModel {
         JurisdictionModel jurisdictionModel = new JurisdictionModel();
         jurisdictionModel.stateName = jsonObject.getString("name");
         jurisdictionModel.stateUrl = jsonObject.getJSONObject("electionAdministrationBody").getString("electionInfoUrl");
-        jurisdictionModel.correspondenceAddress = addressFromJson(jsonObject.getJSONObject("electionAdministrationBody").getJSONObject("correspondenceAddress"));
+        try {
+            jurisdictionModel.correspondenceAddress = addressFromJson(jsonObject.getJSONObject("electionAdministrationBody").getJSONObject("correspondenceAddress"));
+        } catch (Exception e) {
+            jurisdictionModel.correspondenceAddress = "";
+        }
         jurisdictionModel.localName = jsonObject.getJSONObject("local_jurisdiction").getString("name");
         jurisdictionModel.localUrl = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getString("electionInfoUrl");
-        jurisdictionModel.localPhone = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("officePhoneNumber");
-        jurisdictionModel.localEmail = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("emailAddress");
+        try {
+            jurisdictionModel.localPhone = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("officePhoneNumber");
+            jurisdictionModel.localEmail = jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONArray("electionOfficials").getJSONObject(0).getString("emailAddress");
+        } catch (Exception e) {
+            jurisdictionModel.localPhone = "";
+            jurisdictionModel.localEmail = "";
+        }
         jurisdictionModel.localAddress = addressFromJson(jsonObject.getJSONObject("local_jurisdiction").getJSONObject("electionAdministrationBody").getJSONObject("physicalAddress"));
         return jurisdictionModel;
     }

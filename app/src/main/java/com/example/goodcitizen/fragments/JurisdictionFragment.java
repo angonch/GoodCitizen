@@ -25,7 +25,6 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.goodcitizen.GoogleClient;
 import com.example.goodcitizen.R;
 import com.example.goodcitizen.models.JurisdictionModel;
-import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,9 +90,35 @@ public class JurisdictionFragment extends Fragment {
         cvLocalUrl = view.findViewById(R.id.cvLocalUrl);
         cvLocalAddress = view.findViewById(R.id.cvLocalAddress);
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("address", (String) ParseUser.getCurrentUser().get("address"));
+        final AsyncHttpClient client = new AsyncHttpClient();
+        final RequestParams params = new RequestParams();
+        client.get(GoogleClient.getVoterInfoQueryUrl(getContext()),params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.d(TAG, "onSuccess");
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    JSONObject result = jsonObject.getJSONArray("state").getJSONObject(0);
+                    Log.i(TAG, "Result: " + result.toString());
+                    jurisdictionInfo = (JurisdictionModel.fromJson(result));
+                    Log.i(TAG, "Result: " + result.toString());
+                    bindToViews(view);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Hit json exception", e);
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.d(TAG, "onFailure", throwable);
+                tryWithElectionParam(view, client, params);
+            }
+        });
+    }
+
+    private void tryWithElectionParam(final View view, AsyncHttpClient client, RequestParams params) {
+        params.put("electionId", 2000);
         client.get(GoogleClient.getVoterInfoQueryUrl(getContext()),params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
